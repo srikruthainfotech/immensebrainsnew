@@ -1,54 +1,33 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: 'standalone',
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
-    domains: ['localhost'],
-    formats: ['image/webp', 'image/avif'],
-  },
-  compress: true,
-  poweredByHeader: false,
-  generateEtags: false,
-  env: {
-    CUSTOM_KEY: process.env.CUSTOM_KEY,
-  },
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-        ],
-      },
-    ]
-  },
-  async redirects() {
-    return [
-      {
-        source: '/home',
-        destination: '/',
-        permanent: true,
-      },
-    ]
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-}
+const { createServer } = require("http")
+const { parse } = require("url")
+const next = require("next")
 
-export default nextConfig
+const dev = process.env.NODE_ENV !== "production"
+const hostname = process.env.HOSTNAME || "0.0.0.0"
+const port = process.env.PORT || 8080
+
+console.log(`Starting server in ${dev ? "development" : "production"} mode`)
+console.log(`Server will listen on ${hostname}:${port}`)
+
+const app = next({ dev, hostname, port })
+const handle = app.getRequestHandler()
+
+app.prepare().then(() => {
+  createServer(async (req, res) => {
+    try {
+      const parsedUrl = parse(req.url, true)
+      await handle(req, res, parsedUrl)
+    } catch (err) {
+      console.error("Error occurred handling", req.url, err)
+      res.statusCode = 500
+      res.end("internal server error")
+    }
+  })
+    .once("error", (err) => {
+      console.error(err)
+      process.exit(1)
+    })
+    .listen(port, hostname, () => {
+      console.log(`> Ready on http://${hostname}:${port}`)
+    })
+})
