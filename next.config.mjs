@@ -1,18 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
   trailingSlash: true,
   images: {
     unoptimized: true,
-    domains: ['localhost'],
+    domains: ['localhost', 'immensebrains.azurewebsites.net'],
     formats: ['image/webp', 'image/avif'],
   },
   compress: true,
   poweredByHeader: false,
   generateEtags: false,
-  env: {
-    CUSTOM_KEY: process.env.CUSTOM_KEY,
-  },
   async headers() {
     return [
       {
