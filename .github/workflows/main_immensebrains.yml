@@ -26,7 +26,9 @@ jobs:
         cache: 'npm'
 
     - name: Install dependencies
-      run: npm ci
+      run:
+       npm install -force
+       npm run build --if-present
 
     - name: Run tests
       run: npm run test --if-present
