@@ -125,7 +125,7 @@ export default function Footer() {
         {/* Bottom section */}
         <div className="border-t border-white/10 pt-12 flex flex-col md:flex-row justify-between items-center">
           <p className="text-slate-400 text-center md:text-left font-light">
-            &copy; 2024 Immense Brains. Crafted with excellence.
+            &copy; 2025 Immense Brains. Crafted with excellence.
           </p>
           <Button
             variant="ghost"
