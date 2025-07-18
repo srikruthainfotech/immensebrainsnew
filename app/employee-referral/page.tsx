@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Users, Gift, Star, Phone, Mail, MapPin } from "lucide-react"
+import { Users, Gift, Star, Mail, MapPin } from "lucide-react"
 
 export default function EmployeeReferralPage() {
   const [formData, setFormData] = useState({
@@ -49,7 +49,7 @@ export default function EmployeeReferralPage() {
           <h2 className="text-lg text-black mb-3">Employee Referral Program</h2>
           <div className="text-sm text-gray-600 space-y-1">
             <p>6760 Corporate Drive, Suite 100, Colorado Springs, CO 80919</p>
-            <p>(719) 555-0123 | HR@immensebrains.com</p>
+            <p>HR@immensebrains.com</p>
             <p>www.immensebrains.com</p>
           </div>
         </div>
@@ -283,10 +283,6 @@ export default function EmployeeReferralPage() {
               <CardContent>
                 <div className="print:text-black">
                   <div className="space-y-3 print:space-y-1">
-                    <div className="flex items-center gap-3 print:gap-2">
-                      <Phone className="w-4 h-4 text-slate-500 print:text-black print:w-3 print:h-3" />
-                      <span className="text-slate-700 print:text-black print:text-sm">(719) 555-0123</span>
-                    </div>
                     <div className="flex items-center gap-3 print:gap-2">
                       <Mail className="w-4 h-4 text-slate-500 print:text-black print:w-3 print:h-3" />
                       <span className="text-slate-700 print:text-black print:text-sm">HR@immensebrains.com</span>
