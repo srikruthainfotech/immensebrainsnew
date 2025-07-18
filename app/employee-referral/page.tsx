@@ -43,67 +43,70 @@ export default function EmployeeReferralPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/30">
       {/* Print Header - Only visible when printing */}
-      <div className="print-header">
-        <div className="print-company-info">
-          <h1>Immense Brains</h1>
-          <h2>Employee Referral Program</h2>
-          <div className="print-contact-info">
-            <p>📍 123 Innovation Drive, Tech City, TC 12345</p>
-            <p>📞 (555) 123-4567 | ✉️ hr@immensebrains.com</p>
-            <p>🌐 www.immensebrains.com</p>
+      <div className="hidden print:block print:mb-8 print:mt-4">
+        <div className="text-center border-b border-gray-300 pb-4 mb-6">
+          <h1 className="text-2xl font-bold text-black mb-2">Immense Brains LLC</h1>
+          <h2 className="text-lg text-black mb-3">Employee Referral Program</h2>
+          <div className="text-sm text-gray-600 space-y-1">
+            <p>6760 Corporate Drive, Suite 100, Colorado Springs, CO 80919</p>
+            <p>(719) 555-0123 | HR@immensebrains.com</p>
+            <p>www.immensebrains.com</p>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-24">
+      <div className="container mx-auto px-4 py-24 print:py-8">
         {/* Hero Section */}
-        <div className="text-center mb-16 print-section">
-          <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium mb-6 print-hide">
+        <div className="text-center mb-16 print:mb-8 print:text-left">
+          <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium mb-6 print:hidden">
             <Users className="w-4 h-4" />
             Employee Referral Program
           </div>
-          <h1 className="text-5xl font-bold text-slate-900 mb-6 leading-tight">
+          <h1 className="text-5xl font-bold text-slate-900 mb-6 leading-tight print:text-2xl print:font-bold print:text-black print:mb-4">
             Help Us Find Amazing
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-yellow-500"> Talent</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-yellow-500 print:text-black">
+              {" "}
+              Talent
+            </span>
           </h1>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed print:text-base print:text-black print:max-w-none print:mx-0">
             Know someone exceptional? Refer them to join our team and earn rewards while helping us build the future of
             technology.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid lg:grid-cols-3 gap-8 mb-16 print:grid-cols-1 print:gap-4 print:mb-8">
           {/* Program Overview */}
-          <div className="lg:col-span-2 space-y-8">
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
-              <CardHeader className="pb-6">
-                <CardTitle className="text-2xl text-slate-900 flex items-center gap-3">
-                  <Gift className="w-6 h-6 text-amber-600" />
+          <div className="lg:col-span-2 space-y-8 print:space-y-4">
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print:border print:border-gray-300 print:shadow-none print:bg-white">
+              <CardHeader className="pb-6 print:pb-3">
+                <CardTitle className="text-2xl text-slate-900 flex items-center gap-3 print:text-lg print:text-black">
+                  <Gift className="w-6 h-6 text-amber-600 print:w-4 print:h-4 print:text-black" />
                   Program Overview
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="print-content">
-                  <p className="text-slate-700 leading-relaxed mb-4">
+              <CardContent className="space-y-6 print:space-y-3">
+                <div className="print:text-black">
+                  <p className="text-slate-700 leading-relaxed mb-4 print:text-black print:text-sm print:mb-2">
                     Our Employee Referral Program is designed to leverage the power of our team's network to find
                     exceptional talent. We believe that our employees are our best ambassadors and know the kind of
                     people who would thrive in our innovative environment.
                   </p>
 
-                  <p className="text-slate-700 leading-relaxed mb-4">
+                  <p className="text-slate-700 leading-relaxed mb-4 print:text-black print:text-sm print:mb-2">
                     When you refer a candidate who gets hired and successfully completes their probationary period,
                     you'll receive a referral bonus as our way of saying thank you for helping us grow our team with
                     quality professionals.
                   </p>
 
-                  <p className="text-slate-700 leading-relaxed">
+                  <p className="text-slate-700 leading-relaxed print:text-black print:text-sm">
                     We're always looking for talented individuals across all departments - from software development and
                     engineering to sales, marketing, and operations. If you know someone who shares our values of
                     innovation, excellence, and collaboration, we'd love to meet them.
                   </p>
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-4 print-hide">
+                <div className="grid md:grid-cols-2 gap-4 print:hidden">
                   <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
                     <h4 className="font-semibold text-slate-900 mb-2">Referral Bonus</h4>
                     <p className="text-slate-700 text-sm">Earn up to $2,000 for successful referrals</p>
@@ -116,53 +119,61 @@ export default function EmployeeReferralPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
-              <CardHeader className="pb-6">
-                <CardTitle className="text-2xl text-slate-900">How It Works</CardTitle>
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print:border print:border-gray-300 print:shadow-none print:bg-white">
+              <CardHeader className="pb-6 print:pb-3">
+                <CardTitle className="text-2xl text-slate-900 print:text-lg print:text-black">How It Works</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="print-content">
-                  <div className="space-y-4">
-                    <div className="flex gap-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                <div className="print:text-black">
+                  <div className="space-y-4 print:space-y-2">
+                    <div className="flex gap-4 print:gap-2">
+                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm print:w-6 print:h-6 print:bg-gray-200 print:text-black print:text-xs">
                         1
                       </div>
                       <div>
-                        <h4 className="font-semibold text-slate-900 mb-1">Submit Referral</h4>
-                        <p className="text-slate-700">
+                        <h4 className="font-semibold text-slate-900 mb-1 print:text-black print:text-sm print:mb-0">
+                          Submit Referral
+                        </h4>
+                        <p className="text-slate-700 print:text-black print:text-sm">
                           Complete the referral form with candidate details and your recommendation.
                         </p>
                       </div>
                     </div>
-                    <div className="flex gap-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                    <div className="flex gap-4 print:gap-2">
+                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm print:w-6 print:h-6 print:bg-gray-200 print:text-black print:text-xs">
                         2
                       </div>
                       <div>
-                        <h4 className="font-semibold text-slate-900 mb-1">HR Review</h4>
-                        <p className="text-slate-700">
+                        <h4 className="font-semibold text-slate-900 mb-1 print:text-black print:text-sm print:mb-0">
+                          HR Review
+                        </h4>
+                        <p className="text-slate-700 print:text-black print:text-sm">
                           Our HR team reviews the referral and contacts the candidate if there's a match.
                         </p>
                       </div>
                     </div>
-                    <div className="flex gap-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                    <div className="flex gap-4 print:gap-2">
+                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm print:w-6 print:h-6 print:bg-gray-200 print:text-black print:text-xs">
                         3
                       </div>
                       <div>
-                        <h4 className="font-semibold text-slate-900 mb-1">Interview Process</h4>
-                        <p className="text-slate-700">
+                        <h4 className="font-semibold text-slate-900 mb-1 print:text-black print:text-sm print:mb-0">
+                          Interview Process
+                        </h4>
+                        <p className="text-slate-700 print:text-black print:text-sm">
                           Candidate goes through our standard interview and evaluation process.
                         </p>
                       </div>
                     </div>
-                    <div className="flex gap-4">
-                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                    <div className="flex gap-4 print:gap-2">
+                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm print:w-6 print:h-6 print:bg-gray-200 print:text-black print:text-xs">
                         4
                       </div>
                       <div>
-                        <h4 className="font-semibold text-slate-900 mb-1">Earn Reward</h4>
-                        <p className="text-slate-700">
+                        <h4 className="font-semibold text-slate-900 mb-1 print:text-black print:text-sm print:mb-0">
+                          Earn Reward
+                        </h4>
+                        <p className="text-slate-700 print:text-black print:text-sm">
                           Receive your referral bonus after the candidate completes 90 days of employment.
                         </p>
                       </div>
@@ -172,35 +183,37 @@ export default function EmployeeReferralPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
-              <CardHeader className="pb-6">
-                <CardTitle className="text-2xl text-slate-900">Program Guidelines</CardTitle>
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print:border print:border-gray-300 print:shadow-none print:bg-white">
+              <CardHeader className="pb-6 print:pb-3">
+                <CardTitle className="text-2xl text-slate-900 print:text-lg print:text-black">
+                  Program Guidelines
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="print-content">
-                  <div className="space-y-4">
-                    <p className="text-slate-700 leading-relaxed">
+                <div className="print:text-black">
+                  <div className="space-y-4 print:space-y-2">
+                    <p className="text-slate-700 leading-relaxed print:text-black print:text-sm">
                       <strong>Eligibility:</strong> All full-time employees are eligible to participate in the referral
                       program. Part-time employees and contractors may participate with manager approval.
                     </p>
 
-                    <p className="text-slate-700 leading-relaxed">
+                    <p className="text-slate-700 leading-relaxed print:text-black print:text-sm">
                       <strong>Referral Bonus Structure:</strong> Bonus amounts vary by position level and department.
                       Senior-level positions and hard-to-fill roles may qualify for higher bonuses.
                     </p>
 
-                    <p className="text-slate-700 leading-relaxed">
+                    <p className="text-slate-700 leading-relaxed print:text-black print:text-sm">
                       <strong>Payment Timeline:</strong> Referral bonuses are paid after the referred candidate
                       successfully completes their 90-day probationary period and receives a satisfactory performance
                       review.
                     </p>
 
-                    <p className="text-slate-700 leading-relaxed">
+                    <p className="text-slate-700 leading-relaxed print:text-black print:text-sm">
                       <strong>Multiple Referrals:</strong> If multiple employees refer the same candidate, the bonus
                       will be awarded to the first referrer based on submission timestamp.
                     </p>
 
-                    <p className="text-slate-700 leading-relaxed">
+                    <p className="text-slate-700 leading-relaxed print:text-black print:text-sm">
                       <strong>Family Members:</strong> Employees may refer immediate family members, but they are not
                       eligible for referral bonuses for family member hires.
                     </p>
@@ -211,38 +224,50 @@ export default function EmployeeReferralPage() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl text-slate-900 flex items-center gap-2">
-                  <Star className="w-5 h-5 text-amber-600" />
+          <div className="space-y-6 print:space-y-4">
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print:border print:border-gray-300 print:shadow-none print:bg-white">
+              <CardHeader className="pb-4 print:pb-2">
+                <CardTitle className="text-xl text-slate-900 flex items-center gap-2 print:text-lg print:text-black">
+                  <Star className="w-5 h-5 text-amber-600 print:w-4 print:h-4 print:text-black" />
                   Quick Facts
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="print-content">
-                  <div className="space-y-3">
+              <CardContent className="space-y-4 print:space-y-2">
+                <div className="print:text-black">
+                  <div className="space-y-3 print:space-y-1">
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-600">Bonus Range:</span>
-                      <Badge variant="secondary" className="bg-amber-100 text-amber-800">
+                      <span className="text-slate-600 print:text-black print:text-sm">Bonus Range:</span>
+                      <Badge
+                        variant="secondary"
+                        className="bg-amber-100 text-amber-800 print:bg-transparent print:text-black print:border print:border-gray-300 print:text-sm"
+                      >
                         $500 - $2,000
                       </Badge>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-600">Payment Timeline:</span>
-                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                      <span className="text-slate-600 print:text-black print:text-sm">Payment Timeline:</span>
+                      <Badge
+                        variant="secondary"
+                        className="bg-blue-100 text-blue-800 print:bg-transparent print:text-black print:border print:border-gray-300 print:text-sm"
+                      >
                         90 Days
                       </Badge>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-600">All Departments:</span>
-                      <Badge variant="secondary" className="bg-green-100 text-green-800">
+                      <span className="text-slate-600 print:text-black print:text-sm">All Departments:</span>
+                      <Badge
+                        variant="secondary"
+                        className="bg-green-100 text-green-800 print:bg-transparent print:text-black print:border print:border-gray-300 print:text-sm"
+                      >
                         Eligible
                       </Badge>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-slate-600">Success Rate:</span>
-                      <Badge variant="secondary" className="bg-purple-100 text-purple-800">
+                      <span className="text-slate-600 print:text-black print:text-sm">Success Rate:</span>
+                      <Badge
+                        variant="secondary"
+                        className="bg-purple-100 text-purple-800 print:bg-transparent print:text-black print:border print:border-gray-300 print:text-sm"
+                      >
                         85%
                       </Badge>
                     </div>
@@ -251,24 +276,28 @@ export default function EmployeeReferralPage() {
               </CardContent>
             </Card>
 
-            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
-              <CardHeader className="pb-4">
-                <CardTitle className="text-xl text-slate-900">Contact HR</CardTitle>
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print:border print:border-gray-300 print:shadow-none print:bg-white">
+              <CardHeader className="pb-4 print:pb-2">
+                <CardTitle className="text-xl text-slate-900 print:text-lg print:text-black">Contact HR</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="print-content">
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-3">
-                      <Phone className="w-4 h-4 text-slate-500" />
-                      <span className="text-slate-700">(555) 123-4567</span>
+                <div className="print:text-black">
+                  <div className="space-y-3 print:space-y-1">
+                    <div className="flex items-center gap-3 print:gap-2">
+                      <Phone className="w-4 h-4 text-slate-500 print:text-black print:w-3 print:h-3" />
+                      <span className="text-slate-700 print:text-black print:text-sm">(719) 555-0123</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <Mail className="w-4 h-4 text-slate-500" />
-                      <span className="text-slate-700">hr@immensebrains.com</span>
+                    <div className="flex items-center gap-3 print:gap-2">
+                      <Mail className="w-4 h-4 text-slate-500 print:text-black print:w-3 print:h-3" />
+                      <span className="text-slate-700 print:text-black print:text-sm">HR@immensebrains.com</span>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <MapPin className="w-4 h-4 text-slate-500" />
-                      <span className="text-slate-700">HR Department, Floor 3</span>
+                    <div className="flex items-start gap-3 print:gap-2">
+                      <MapPin className="w-4 h-4 text-slate-500 mt-0.5 print:text-black print:w-3 print:h-3 print:mt-0" />
+                      <div className="text-slate-700 print:text-black print:text-sm">
+                        <div>6760 Corporate Drive</div>
+                        <div>Suite 100</div>
+                        <div>Colorado Springs, CO 80919</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -278,7 +307,7 @@ export default function EmployeeReferralPage() {
         </div>
 
         {/* Referral Form */}
-        <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm print-hide">
+        <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm print:hidden">
           <CardHeader className="pb-8">
             <CardTitle className="text-3xl text-slate-900 text-center">Submit a Referral</CardTitle>
             <CardDescription className="text-center text-lg text-slate-600">
