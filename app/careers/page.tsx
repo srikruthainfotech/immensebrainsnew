@@ -17,6 +17,7 @@ interface Job {
   type: string
   salary: string
   description: string
+  fullDescription: string[]
   requirements: string[]
   benefits: string[]
   postedDate: string
@@ -35,7 +36,7 @@ export default function CareersPage() {
   const [departmentFilter, setDepartmentFilter] = useState("all")
   const [locationFilter, setLocationFilter] = useState("all")
 
-  // Real job data from the posting notice
+  // Real job data from the posting notice - plain text format with paragraphs
   useEffect(() => {
     const realJobs: Job[] = [
       {
@@ -47,13 +48,27 @@ export default function CareersPage() {
         salary: "$153,733.00",
         description:
           "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Work with Oracle Fusion systems and ensure smooth business operations.",
+        fullDescription: [
+          "IMMENSE BRAINS LLC has an opening for the position of Software Developer - Oracle Fusion (Job Code: IB-SD-OF-001) at 6760 Corporate Drive, Suite 100, Colorado Springs, CO 80919.",
+          "JOB DUTIES: Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Identify, analyze, and resolve issues within Oracle Fusion systems. Perform configuration tasks including workflows, roles, security profiles. Manage and validate data flows between Oracle Fusion and connected systems. Develop and run custom financial reports based on business needs. Troubleshoot integrations between Oracle Fusion and third-party applications.",
+          "REQUIREMENTS: Master's degree in Computer Science/IT/IS/Engineering/Business or related field with 6 months experience in the job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer. Alternatively, Bachelor's degree in Computer Science/IT/IS/Engineering/Business or related field plus 5 years of progressive work experience in the job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer. Must have 6 months experience working with Oracle Fusion or Oracle EBS. Travel and/or relocation to unanticipated client sites within USA required. International travel is not required.",
+          "SALARY: $153,733.00/year, 40 hours/week.",
+          "TO APPLY: Send resume to HR@immensebrains.com",
+          "Posted by: CEO Sai Nirukurti",
+          "Date: June 26th",
+        ],
         requirements: [
-          "Master's degree in Computer Science/IT/IS/Engineering/Business or related field",
-          "6 months experience with Oracle Fusion or Oracle EBS",
-          "Bachelor's degree + 5 years progressive work experience (alternative)",
+          "Master's degree in Computer Science/IT/IS/Engineering/Business or related field with 6 months experience",
+          "OR Bachelor's degree + 5 years progressive work experience",
+          "6 months experience with Oracle Fusion or Oracle EBS required",
           "Travel/relocation to client sites throughout USA required",
         ],
-        benefits: ["Competitive salary", "Full-time position", "Professional development", "Client site experience"],
+        benefits: [
+          "$153,733.00/year salary",
+          "Full-time 40 hours/week",
+          "Client site experience",
+          "Professional development",
+        ],
         postedDate: "June 26th",
         gradient: "from-amber-400 to-yellow-500",
         accent: "border-amber-200",
@@ -85,13 +100,27 @@ export default function CareersPage() {
         salary: "$145,309.00",
         description:
           "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations. Focus on ETL/ELT processes and data infrastructure.",
+        fullDescription: [
+          "IMMENSE BRAINS LLC has an opening for the position of Software Developer - Data Engineering (Job Code: IB-SD-DE-002) at 6760 Corporate Drive, Suite 100, Colorado Springs, CO 80919.",
+          "JOB DUTIES: Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations. Design and implement ETL/ELT pipelines from various sources to target systems. Build and automate workflows for batch and real-time data processing. Design and manage scalable, cost-efficient storage solutions. Implement data backup, replication, and disaster recovery strategies. Process, cleanse, and transform raw data into meaningful formats. Orchestrate complex workflows combining different data services. Ensure secure data in transit and at rest with encryption and access control.",
+          "REQUIREMENTS: Master's degree in Computer Science/IT/IS/Engineering or closely related field with 6 months experience in the job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer/Data Engineer. Must have 6 months experience working with ETL or Informatica. Travel and/or relocation to unanticipated client sites within USA required. International travel is not required.",
+          "SALARY: $145,309.00/year, 40 hours/week.",
+          "TO APPLY: Send resume to HR@immensebrains.com",
+          "Posted by: CEO Sai Nirukurti",
+          "Date: June 26th",
+        ],
         requirements: [
-          "Master's degree in Computer Science/IT/IS/Engineering or related field",
-          "6 months experience with ETL or Informatica",
-          "Experience in data engineering or related field",
+          "Master's degree in Computer Science/IT/IS/Engineering or closely related field",
+          "6 months experience in job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer/Data Engineer",
+          "6 months experience with ETL or Informatica required",
           "Travel/relocation to client sites throughout USA required",
         ],
-        benefits: ["Competitive salary", "Full-time position", "Data engineering expertise", "Client site experience"],
+        benefits: [
+          "$145,309.00/year salary",
+          "Full-time 40 hours/week",
+          "Data engineering expertise",
+          "Client site experience",
+        ],
         postedDate: "June 26th",
         gradient: "from-emerald-400 to-teal-500",
         accent: "border-emerald-200",
