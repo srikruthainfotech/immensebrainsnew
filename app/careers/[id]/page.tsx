@@ -149,11 +149,11 @@ export default function JobDetailsPage() {
 
   if (!job) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pt-20 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 pt-20 flex items-center justify-center print:pt-0 print:bg-white">
         <Card className="p-8 text-center max-w-md">
           <h2 className="text-2xl font-bold text-slate-900 mb-4">Job Not Found</h2>
           <p className="text-slate-600 mb-6">The job you're looking for doesn't exist or has been removed.</p>
-          <Button asChild>
+          <Button asChild className="print:hidden">
             <Link href="/careers">Back to Careers</Link>
           </Button>
         </Card>
@@ -162,10 +162,10 @@ export default function JobDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 pt-20">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 pt-20 print:pt-0 print:bg-white">
+      <div className="container mx-auto px-4 py-8 print:px-0 print:py-4">
         {/* Back Button */}
-        <Button variant="ghost" asChild className="mb-6">
+        <Button variant="ghost" asChild className="mb-6 print:hidden">
           <Link href="/careers">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Careers
@@ -173,8 +173,8 @@ export default function JobDetailsPage() {
         </Button>
 
         {/* Job Header */}
-        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-black rounded-3xl p-8 lg:p-12 mb-8 text-white relative overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden">
+        <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-black rounded-3xl p-8 lg:p-12 mb-8 text-white relative overflow-hidden print:bg-white print:text-black print:border print:border-gray-300 print:rounded-none print:p-6 print:mb-4">
+          <div className="absolute inset-0 overflow-hidden print:hidden">
             <div className="absolute -top-20 -right-20 w-48 h-48 bg-gradient-to-br from-amber-400/10 to-yellow-600/10 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-gradient-to-br from-emerald-400/10 to-teal-600/10 rounded-full blur-3xl"></div>
           </div>
@@ -184,37 +184,45 @@ export default function JobDetailsPage() {
               <div className="flex-1">
                 <div className="flex items-center gap-4 mb-4">
                   <div
-                    className={`w-16 h-16 rounded-3xl bg-gradient-to-br ${job.gradient} flex items-center justify-center shadow-xl`}
+                    className={`w-16 h-16 rounded-3xl bg-gradient-to-br ${job.gradient} flex items-center justify-center shadow-xl print:bg-gray-200 print:shadow-none`}
                   >
-                    <Briefcase className="h-8 w-8 text-white" />
+                    <Briefcase className="h-8 w-8 text-white print:text-black" />
                   </div>
                   <div>
-                    <h1 className="text-4xl lg:text-5xl font-light mb-2">{job.title}</h1>
+                    <h1 className="text-4xl lg:text-5xl font-light mb-2 print:text-3xl print:text-black">
+                      {job.title}
+                    </h1>
                     <div className="flex flex-wrap gap-3">
-                      <Badge className="bg-white/20 text-white border-white/30">{job.department}</Badge>
-                      <Badge className="bg-white/20 text-white border-white/30">{job.openings} Openings</Badge>
-                      <Badge className="bg-white/20 text-white border-white/30">Posted {job.postedDate}</Badge>
+                      <Badge className="bg-white/20 text-white border-white/30 print:bg-gray-100 print:text-black print:border-gray-300">
+                        {job.department}
+                      </Badge>
+                      <Badge className="bg-white/20 text-white border-white/30 print:bg-gray-100 print:text-black print:border-gray-300">
+                        {job.openings} Openings
+                      </Badge>
+                      <Badge className="bg-white/20 text-white border-white/30 print:bg-gray-100 print:text-black print:border-gray-300">
+                        Posted {job.postedDate}
+                      </Badge>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6 mt-8">
+                <div className="grid md:grid-cols-3 gap-6 mt-8 print:grid-cols-1 print:gap-2 print:mt-4">
                   <div className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5 text-amber-300" />
-                    <span className="font-light">{job.location}</span>
+                    <MapPin className="h-5 w-5 text-amber-300 print:text-black" />
+                    <span className="font-light print:text-black">{job.location}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Clock className="h-5 w-5 text-amber-300" />
-                    <span className="font-light">{job.type} - 40 hours/week</span>
+                    <Clock className="h-5 w-5 text-amber-300 print:text-black" />
+                    <span className="font-light print:text-black">{job.type} - 40 hours/week</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <DollarSign className="h-5 w-5 text-amber-300" />
-                    <span className="font-light">{job.salary}/year</span>
+                    <DollarSign className="h-5 w-5 text-amber-300 print:text-black" />
+                    <span className="font-light print:text-black">{job.salary}/year</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 print:hidden">
                 <Button
                   size="lg"
                   className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
@@ -227,23 +235,26 @@ export default function JobDetailsPage() {
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-8 print:grid-cols-1 print:gap-4">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+          <div className="lg:col-span-2 space-y-8 print:col-span-1 print:space-y-4">
             {/* Full Job Description with Paragraphs */}
-            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl font-light flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-slate-600 to-slate-700 rounded-2xl flex items-center justify-center">
-                    <Briefcase className="h-5 w-5 text-white" />
+            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm print:shadow-none print:border print:border-gray-300 print:bg-white print:break-inside-avoid">
+              <CardHeader className="print:pb-2">
+                <CardTitle className="text-2xl font-light flex items-center gap-3 print:text-xl">
+                  <div className="w-10 h-10 bg-gradient-to-br from-slate-600 to-slate-700 rounded-2xl flex items-center justify-center print:bg-gray-200">
+                    <Briefcase className="h-5 w-5 text-white print:text-black" />
                   </div>
                   Complete Job Posting
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
+              <CardContent className="print:pt-0">
+                <div className="space-y-6 print:space-y-3">
                   {job.fullDescription.map((paragraph, index) => (
-                    <p key={index} className="text-slate-600 leading-relaxed font-light text-lg">
+                    <p
+                      key={index}
+                      className="text-slate-600 leading-relaxed font-light text-lg print:text-black print:text-base print:leading-normal"
+                    >
                       {paragraph}
                     </p>
                   ))}
@@ -252,21 +263,23 @@ export default function JobDetailsPage() {
             </Card>
 
             {/* Job Duties */}
-            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl font-light flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center">
-                    <Award className="h-5 w-5 text-white" />
+            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm print:shadow-none print:border print:border-gray-300 print:bg-white print:break-inside-avoid">
+              <CardHeader className="print:pb-2">
+                <CardTitle className="text-2xl font-light flex items-center gap-3 print:text-xl">
+                  <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center print:bg-gray-200">
+                    <Award className="h-5 w-5 text-white print:text-black" />
                   </div>
                   Key Responsibilities
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-4">
+              <CardContent className="print:pt-0">
+                <ul className="space-y-4 print:space-y-2">
                   {job.duties.map((duty, index) => (
                     <li key={index} className="flex items-start gap-4">
-                      <div className="w-3 h-3 bg-gradient-to-r from-violet-400 to-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-slate-600 font-light leading-relaxed">{duty}</span>
+                      <div className="w-3 h-3 bg-gradient-to-r from-violet-400 to-purple-500 rounded-full mt-2 flex-shrink-0 print:bg-black print:w-2 print:h-2"></div>
+                      <span className="text-slate-600 font-light leading-relaxed print:text-black print:text-base">
+                        {duty}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -274,21 +287,23 @@ export default function JobDetailsPage() {
             </Card>
 
             {/* Education Requirements */}
-            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl font-light flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center">
-                    <GraduationCap className="h-5 w-5 text-white" />
+            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm print:shadow-none print:border print:border-gray-300 print:bg-white print:break-inside-avoid">
+              <CardHeader className="print:pb-2">
+                <CardTitle className="text-2xl font-light flex items-center gap-3 print:text-xl">
+                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center print:bg-gray-200">
+                    <GraduationCap className="h-5 w-5 text-white print:text-black" />
                   </div>
                   Education Requirements
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-4">
+              <CardContent className="print:pt-0">
+                <ul className="space-y-4 print:space-y-2">
                   {job.education.map((edu, index) => (
                     <li key={index} className="flex items-start gap-4">
-                      <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-slate-600 font-light leading-relaxed">{edu}</span>
+                      <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full mt-2 flex-shrink-0 print:bg-black print:w-2 print:h-2"></div>
+                      <span className="text-slate-600 font-light leading-relaxed print:text-black print:text-base">
+                        {edu}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -296,21 +311,23 @@ export default function JobDetailsPage() {
             </Card>
 
             {/* Experience Requirements */}
-            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-2xl font-light flex items-center gap-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl flex items-center justify-center">
-                    <Users className="h-5 w-5 text-white" />
+            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm print:shadow-none print:border print:border-gray-300 print:bg-white print:break-inside-avoid">
+              <CardHeader className="print:pb-2">
+                <CardTitle className="text-2xl font-light flex items-center gap-3 print:text-xl">
+                  <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl flex items-center justify-center print:bg-gray-200">
+                    <Users className="h-5 w-5 text-white print:text-black" />
                   </div>
                   Experience & Travel Requirements
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-4">
+              <CardContent className="print:pt-0">
+                <ul className="space-y-4 print:space-y-2">
                   {job.experience.map((exp, index) => (
                     <li key={index} className="flex items-start gap-4">
-                      <div className="w-3 h-3 bg-gradient-to-r from-rose-400 to-pink-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-slate-600 font-light leading-relaxed">{exp}</span>
+                      <div className="w-3 h-3 bg-gradient-to-r from-rose-400 to-pink-500 rounded-full mt-2 flex-shrink-0 print:bg-black print:w-2 print:h-2"></div>
+                      <span className="text-slate-600 font-light leading-relaxed print:text-black print:text-base">
+                        {exp}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -319,7 +336,7 @@ export default function JobDetailsPage() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-8">
+          <div className="space-y-8 print:hidden">
             {/* Quick Apply */}
             <Card className="shadow-xl border-0 bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200/50">
               <CardHeader className="text-center">

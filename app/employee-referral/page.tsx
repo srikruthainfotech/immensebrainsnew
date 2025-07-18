@@ -4,622 +4,464 @@ import type React from "react"
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import {
-  Users,
-  DollarSign,
-  UserPlus,
-  Mail,
-  Calendar,
-  CheckCircle,
-  Sparkles,
-  Award,
-  Gift,
-  Target,
-  FileText,
-  Send,
-  MapPin,
-} from "lucide-react"
-import Link from "next/link"
+import { Users, Gift, Star, Phone, Mail, MapPin } from "lucide-react"
 
 export default function EmployeeReferralPage() {
   const [formData, setFormData] = useState({
-    employeeName: "",
-    employeeId: "",
-    employeeEmail: "",
+    referrerName: "",
+    referrerEmail: "",
+    referrerDepartment: "",
     candidateName: "",
     candidateEmail: "",
     candidatePhone: "",
     position: "",
     relationship: "",
-    comments: "",
+    whyRecommend: "",
+    candidateResume: null as File | null,
   })
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null
+    setFormData((prev) => ({ ...prev, candidateResume: file }))
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
     console.log("Referral submitted:", formData)
-    alert("Thank you for your referral! HR will review the candidate and contact you directly.")
-    setFormData({
-      employeeName: "",
-      employeeId: "",
-      employeeEmail: "",
-      candidateName: "",
-      candidateEmail: "",
-      candidatePhone: "",
-      position: "",
-      relationship: "",
-      comments: "",
-    })
+    // Handle form submission here
   }
-
-  const handleChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }))
-  }
-
-  const programHighlights = [
-    {
-      icon: DollarSign,
-      title: "$1,000 Bonus",
-      description: "Receive a special bonus when your referral stays for 90+ days",
-      gradient: "from-amber-400 to-yellow-500",
-    },
-    {
-      icon: Target,
-      title: "No Limits",
-      description: "Unlimited referrals and bonuses - refer as many candidates as you want",
-      gradient: "from-emerald-400 to-teal-500",
-    },
-    {
-      icon: Users,
-      title: "All Employees Eligible",
-      description: "Every current Immense Brains employee can participate",
-      gradient: "from-violet-400 to-purple-500",
-    },
-    {
-      icon: CheckCircle,
-      title: "Simple Process",
-      description: "Easy referral process through HR - we handle the rest",
-      gradient: "from-rose-400 to-pink-500",
-    },
-  ]
-
-  const steps = [
-    {
-      step: "01",
-      title: "Find a Qualified Candidate",
-      description: "Identify someone who would be a great fit for our open positions",
-      icon: UserPlus,
-    },
-    {
-      step: "02",
-      title: "Submit Referral",
-      description: "Contact HR directly or use our referral form with candidate details",
-      icon: FileText,
-    },
-    {
-      step: "03",
-      title: "Candidate Applies",
-      description: "The candidate applies through our standard hiring process",
-      icon: Send,
-    },
-    {
-      step: "04",
-      title: "Get Your Bonus",
-      description: "Receive $1,000 bonus after the new hire stays for 90+ days",
-      icon: Gift,
-    },
-  ]
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-50">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-black py-24 lg:py-32 overflow-hidden">
-        {/* Clean luxury background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-amber-400/10 to-yellow-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-rose-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-violet-400/5 to-purple-600/5 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-5xl mx-auto animate-fade-in-up">
-            <Badge
-              variant="outline"
-              className="mb-6 text-amber-300 border-amber-200/30 bg-amber-50/10 px-6 py-2 backdrop-blur-sm"
-            >
-              <Users className="w-4 h-4 mr-2" />
-              Employee Referral Program
-            </Badge>
-            <h1 className="text-6xl lg:text-8xl font-light text-white leading-tight tracking-tight mb-8">
-              Help Us Find
-              <span className="block font-bold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-                Exceptional Talent
-              </span>
-            </h1>
-            <p className="text-xl text-slate-300 leading-relaxed font-light max-w-4xl mx-auto">
-              Join our Employee Referral Program and earn rewards while helping us build an even stronger team of
-              talented professionals.
-            </p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50/30">
+      {/* Print Header - Only visible when printing */}
+      <div className="print-header">
+        <div className="print-company-info">
+          <h1>Immense Brains</h1>
+          <h2>Employee Referral Program</h2>
+          <div className="print-contact-info">
+            <p>📍 123 Innovation Drive, Tech City, TC 12345</p>
+            <p>📞 (555) 123-4567 | ✉️ hr@immensebrains.com</p>
+            <p>🌐 www.immensebrains.com</p>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Program Overview */}
-      <section className="py-24 bg-gradient-to-b from-white via-slate-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-20 animate-fade-in-up">
-            <Badge variant="outline" className="mb-6 text-amber-600 border-amber-200 bg-amber-50 px-6 py-2">
-              <Award className="w-4 h-4 mr-2" />
-              Program Overview
-            </Badge>
-            <h2 className="text-5xl lg:text-6xl font-light text-slate-900 mb-8 tracking-tight">
-              Immense Brains LLC
-              <span className="block font-bold bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 bg-clip-text text-transparent">
-                Employee Referral Program
-              </span>
-            </h2>
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto font-light leading-relaxed">
-              Our Employee Referral Program is a recruiting tool designed to encourage Immense Brains LLC employees to
-              refer qualified candidates to fill open positions at our company.
-            </p>
+      <div className="container mx-auto px-4 py-24">
+        {/* Hero Section */}
+        <div className="text-center mb-16 print-section">
+          <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium mb-6 print-hide">
+            <Users className="w-4 h-4" />
+            Employee Referral Program
           </div>
+          <h1 className="text-5xl font-bold text-slate-900 mb-6 leading-tight">
+            Help Us Find Amazing
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-yellow-500"> Talent</span>
+          </h1>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+            Know someone exceptional? Refer them to join our team and earn rewards while helping us build the future of
+            technology.
+          </p>
+        </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {programHighlights.map((highlight, index) => (
-              <Card
-                key={index}
-                className="text-center p-8 hover:shadow-2xl transition-all duration-700 border-0 bg-white/80 backdrop-blur-sm hover:scale-105 animate-fade-in-up shadow-lg relative overflow-hidden"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${highlight.gradient}`}></div>
-                <div
-                  className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${highlight.gradient} flex items-center justify-center text-white mb-6 mx-auto shadow-xl relative`}
-                >
-                  <div className="absolute inset-0 bg-white/20 rounded-3xl blur-xl"></div>
-                  <highlight.icon className="h-10 w-10 relative z-10" />
+        <div className="grid lg:grid-cols-3 gap-8 mb-16">
+          {/* Program Overview */}
+          <div className="lg:col-span-2 space-y-8">
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
+              <CardHeader className="pb-6">
+                <CardTitle className="text-2xl text-slate-900 flex items-center gap-3">
+                  <Gift className="w-6 h-6 text-amber-600" />
+                  Program Overview
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="print-content">
+                  <p className="text-slate-700 leading-relaxed mb-4">
+                    Our Employee Referral Program is designed to leverage the power of our team's network to find
+                    exceptional talent. We believe that our employees are our best ambassadors and know the kind of
+                    people who would thrive in our innovative environment.
+                  </p>
+
+                  <p className="text-slate-700 leading-relaxed mb-4">
+                    When you refer a candidate who gets hired and successfully completes their probationary period,
+                    you'll receive a referral bonus as our way of saying thank you for helping us grow our team with
+                    quality professionals.
+                  </p>
+
+                  <p className="text-slate-700 leading-relaxed">
+                    We're always looking for talented individuals across all departments - from software development and
+                    engineering to sales, marketing, and operations. If you know someone who shares our values of
+                    innovation, excellence, and collaboration, we'd love to meet them.
+                  </p>
                 </div>
-                <h3 className="font-semibold text-slate-900 text-xl mb-4">{highlight.title}</h3>
-                <p className="text-slate-600 text-base font-light leading-relaxed">{highlight.description}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Eligibility & Requirements */}
-      <section className="py-24 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-900/10 via-transparent to-rose-900/10"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div className="space-y-10 animate-fade-in-left">
-              <div>
-                <Badge
-                  variant="outline"
-                  className="mb-6 text-amber-300 border-amber-200/30 bg-amber-50/10 px-6 py-2 backdrop-blur-sm"
-                >
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Eligibility
-                </Badge>
-                <h2 className="text-5xl font-light text-white mb-8 tracking-tight">
-                  Program
-                  <span className="block font-bold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-                    Requirements
-                  </span>
-                </h2>
-              </div>
-
-              <div className="space-y-8">
-                <Card className="p-8 bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-                  <h3 className="text-2xl font-light text-slate-900 mb-6">Eligibility Criteria</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-3 h-3 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="text-slate-600 font-light">
-                        Current employees of Immense Brains LLC are eligible to make referrals
-                      </p>
-                    </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-3 h-3 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="text-slate-600 font-light">
-                        In case of multiple referrals, the first employee to submit will be recognized
-                      </p>
-                    </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-3 h-3 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full mt-2 flex-shrink-0"></div>
-                      <p className="text-slate-600 font-light">
-                        Referred candidate must not be a current employee of the company
-                      </p>
-                    </div>
+                <div className="grid md:grid-cols-2 gap-4 print-hide">
+                  <div className="bg-gradient-to-br from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
+                    <h4 className="font-semibold text-slate-900 mb-2">Referral Bonus</h4>
+                    <p className="text-slate-700 text-sm">Earn up to $2,000 for successful referrals</p>
                   </div>
-                </Card>
+                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                    <h4 className="font-semibold text-slate-900 mb-2">All Positions</h4>
+                    <p className="text-slate-700 text-sm">Refer candidates for any open position</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
-                <Card className="p-8 bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-                  <h3 className="text-2xl font-light text-slate-900 mb-6">Incentives Offered</h3>
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
+              <CardHeader className="pb-6">
+                <CardTitle className="text-2xl text-slate-900">How It Works</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="print-content">
                   <div className="space-y-4">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <DollarSign className="h-6 w-6 text-white" />
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                        1
                       </div>
                       <div>
-                        <p className="text-slate-900 font-semibold text-lg mb-2">$1,000 Special Bonus</p>
-                        <p className="text-slate-600 font-light">
-                          When your referral stays with the company for 90+ days
+                        <h4 className="font-semibold text-slate-900 mb-1">Submit Referral</h4>
+                        <p className="text-slate-700">
+                          Complete the referral form with candidate details and your recommendation.
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-start space-x-4">
-                      <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Target className="h-6 w-6 text-white" />
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                        2
                       </div>
                       <div>
-                        <p className="text-slate-900 font-semibold text-lg mb-2">No Limits</p>
-                        <p className="text-slate-600 font-light">Unlimited referrals and bonuses you can receive</p>
+                        <h4 className="font-semibold text-slate-900 mb-1">HR Review</h4>
+                        <p className="text-slate-700">
+                          Our HR team reviews the referral and contacts the candidate if there's a match.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                        3
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-slate-900 mb-1">Interview Process</h4>
+                        <p className="text-slate-700">
+                          Candidate goes through our standard interview and evaluation process.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="flex-shrink-0 w-8 h-8 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center font-semibold text-sm">
+                        4
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-slate-900 mb-1">Earn Reward</h4>
+                        <p className="text-slate-700">
+                          Receive your referral bonus after the candidate completes 90 days of employment.
+                        </p>
                       </div>
                     </div>
                   </div>
-                </Card>
-              </div>
-            </div>
-
-            <div className="space-y-10 animate-fade-in-right">
-              <div>
-                <Badge
-                  variant="outline"
-                  className="mb-6 text-amber-300 border-amber-200/30 bg-amber-50/10 px-6 py-2 backdrop-blur-sm"
-                >
-                  <FileText className="w-4 h-4 mr-2" />
-                  How It Works
-                </Badge>
-                <h2 className="text-5xl font-light text-white mb-8 tracking-tight">
-                  Referral
-                  <span className="block font-bold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-                    Process
-                  </span>
-                </h2>
-              </div>
-
-              <div className="space-y-6">
-                {steps.map((step, index) => (
-                  <Card
-                    key={index}
-                    className="p-6 bg-white/90 backdrop-blur-sm border-0 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-                  >
-                    <div className="flex items-start space-x-6">
-                      <div className="flex-shrink-0">
-                        <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                          {step.step}
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-slate-900 mb-2">{step.title}</h3>
-                        <p className="text-slate-600 font-light leading-relaxed">{step.description}</p>
-                      </div>
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-gradient-to-br from-violet-400 to-purple-500 rounded-full flex items-center justify-center">
-                          <step.icon className="h-6 w-6 text-white" />
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Referral Form */}
-      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16 animate-fade-in-up">
-              <Badge variant="outline" className="mb-6 text-amber-600 border-amber-200 bg-amber-50 px-6 py-2">
-                <Send className="w-4 h-4 mr-2" />
-                Submit Referral
-              </Badge>
-              <h2 className="text-5xl lg:text-6xl font-light text-slate-900 mb-8 tracking-tight">
-                Refer a
-                <span className="block font-bold bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 bg-clip-text text-transparent">
-                  Qualified Candidate
-                </span>
-              </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
-                Use the form below to submit your referral, or contact HR directly at HR@immensebrains.com
-              </p>
-            </div>
-
-            <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
-              <CardHeader className="pb-8 pt-10">
-                <div className="w-16 h-16 rounded-3xl bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center text-white mb-6 shadow-xl mx-auto">
-                  <UserPlus className="h-8 w-8" />
                 </div>
-                <CardTitle className="text-3xl font-light text-center">Employee Referral Form</CardTitle>
-                <CardDescription className="text-lg font-light text-center">
-                  Please provide complete information about yourself and the candidate you're referring.
-                </CardDescription>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
+              <CardHeader className="pb-6">
+                <CardTitle className="text-2xl text-slate-900">Program Guidelines</CardTitle>
               </CardHeader>
-              <CardContent className="px-10 pb-10">
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  {/* Employee Information */}
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-light text-slate-900 border-b border-slate-200 pb-4">
-                      Your Information
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <Label htmlFor="employeeName" className="text-lg font-light">
-                          Your Full Name *
-                        </Label>
-                        <Input
-                          id="employeeName"
-                          value={formData.employeeName}
-                          onChange={(e) => handleChange("employeeName", e.target.value)}
-                          placeholder="John Doe"
-                          required
-                          className="h-12 text-lg"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <Label htmlFor="employeeId" className="text-lg font-light">
-                          Employee ID *
-                        </Label>
-                        <Input
-                          id="employeeId"
-                          value={formData.employeeId}
-                          onChange={(e) => handleChange("employeeId", e.target.value)}
-                          placeholder="EMP001"
-                          required
-                          className="h-12 text-lg"
-                        />
-                      </div>
+              <CardContent>
+                <div className="print-content">
+                  <div className="space-y-4">
+                    <p className="text-slate-700 leading-relaxed">
+                      <strong>Eligibility:</strong> All full-time employees are eligible to participate in the referral
+                      program. Part-time employees and contractors may participate with manager approval.
+                    </p>
+
+                    <p className="text-slate-700 leading-relaxed">
+                      <strong>Referral Bonus Structure:</strong> Bonus amounts vary by position level and department.
+                      Senior-level positions and hard-to-fill roles may qualify for higher bonuses.
+                    </p>
+
+                    <p className="text-slate-700 leading-relaxed">
+                      <strong>Payment Timeline:</strong> Referral bonuses are paid after the referred candidate
+                      successfully completes their 90-day probationary period and receives a satisfactory performance
+                      review.
+                    </p>
+
+                    <p className="text-slate-700 leading-relaxed">
+                      <strong>Multiple Referrals:</strong> If multiple employees refer the same candidate, the bonus
+                      will be awarded to the first referrer based on submission timestamp.
+                    </p>
+
+                    <p className="text-slate-700 leading-relaxed">
+                      <strong>Family Members:</strong> Employees may refer immediate family members, but they are not
+                      eligible for referral bonuses for family member hires.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Sidebar */}
+          <div className="space-y-6">
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl text-slate-900 flex items-center gap-2">
+                  <Star className="w-5 h-5 text-amber-600" />
+                  Quick Facts
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="print-content">
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600">Bonus Range:</span>
+                      <Badge variant="secondary" className="bg-amber-100 text-amber-800">
+                        $500 - $2,000
+                      </Badge>
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="employeeEmail" className="text-lg font-light">
-                        Your Email Address *
-                      </Label>
-                      <Input
-                        id="employeeEmail"
-                        type="email"
-                        value={formData.employeeEmail}
-                        onChange={(e) => handleChange("employeeEmail", e.target.value)}
-                        placeholder="john.doe@immensebrains.com"
-                        required
-                        className="h-12 text-lg"
-                      />
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600">Payment Timeline:</span>
+                      <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+                        90 Days
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600">All Departments:</span>
+                      <Badge variant="secondary" className="bg-green-100 text-green-800">
+                        Eligible
+                      </Badge>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-slate-600">Success Rate:</span>
+                      <Badge variant="secondary" className="bg-purple-100 text-purple-800">
+                        85%
+                      </Badge>
                     </div>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
 
-                  {/* Candidate Information */}
-                  <div className="space-y-6">
-                    <h3 className="text-2xl font-light text-slate-900 border-b border-slate-200 pb-4">
-                      Candidate Information
-                    </h3>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <Label htmlFor="candidateName" className="text-lg font-light">
-                          Candidate Full Name *
-                        </Label>
-                        <Input
-                          id="candidateName"
-                          value={formData.candidateName}
-                          onChange={(e) => handleChange("candidateName", e.target.value)}
-                          placeholder="Jane Smith"
-                          required
-                          className="h-12 text-lg"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <Label htmlFor="candidateEmail" className="text-lg font-light">
-                          Candidate Email *
-                        </Label>
-                        <Input
-                          id="candidateEmail"
-                          type="email"
-                          value={formData.candidateEmail}
-                          onChange={(e) => handleChange("candidateEmail", e.target.value)}
-                          placeholder="jane.smith@email.com"
-                          required
-                          className="h-12 text-lg"
-                        />
-                      </div>
+            <Card className="border-0 shadow-xl bg-white/80 backdrop-blur-sm print-card">
+              <CardHeader className="pb-4">
+                <CardTitle className="text-xl text-slate-900">Contact HR</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="print-content">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-3">
+                      <Phone className="w-4 h-4 text-slate-500" />
+                      <span className="text-slate-700">(555) 123-4567</span>
                     </div>
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-3">
-                        <Label htmlFor="candidatePhone" className="text-lg font-light">
-                          Candidate Phone
-                        </Label>
-                        <Input
-                          id="candidatePhone"
-                          type="tel"
-                          value={formData.candidatePhone}
-                          onChange={(e) => handleChange("candidatePhone", e.target.value)}
-                          placeholder="+1 (555) 123-4567"
-                          className="h-12 text-lg"
-                        />
-                      </div>
-                      <div className="space-y-3">
-                        <Label htmlFor="position" className="text-lg font-light">
-                          Position Referring For *
-                        </Label>
-                        <Input
-                          id="position"
-                          value={formData.position}
-                          onChange={(e) => handleChange("position", e.target.value)}
-                          placeholder="Senior Developer"
-                          required
-                          className="h-12 text-lg"
-                        />
-                      </div>
+                    <div className="flex items-center gap-3">
+                      <Mail className="w-4 h-4 text-slate-500" />
+                      <span className="text-slate-700">hr@immensebrains.com</span>
                     </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="relationship" className="text-lg font-light">
-                        Your Relationship to Candidate
-                      </Label>
-                      <Input
-                        id="relationship"
-                        value={formData.relationship}
-                        onChange={(e) => handleChange("relationship", e.target.value)}
-                        placeholder="Former colleague, friend, etc."
-                        className="h-12 text-lg"
-                      />
-                    </div>
-                    <div className="space-y-3">
-                      <Label htmlFor="comments" className="text-lg font-light">
-                        Additional Comments
-                      </Label>
-                      <Textarea
-                        id="comments"
-                        value={formData.comments}
-                        onChange={(e) => handleChange("comments", e.target.value)}
-                        placeholder="Why do you think this candidate would be a great fit for our company?"
-                        rows={4}
-                        className="text-lg"
-                      />
+                    <div className="flex items-center gap-3">
+                      <MapPin className="w-4 h-4 text-slate-500" />
+                      <span className="text-slate-700">HR Department, Floor 3</span>
                     </div>
                   </div>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold py-4 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
-                  >
-                    <Send className="mr-3 h-5 w-5" />
-                    Submit Referral
-                  </Button>
-                </form>
+                </div>
               </CardContent>
             </Card>
           </div>
         </div>
-      </section>
 
-      {/* Important Information */}
-      <section className="py-24 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-900/10 via-transparent to-rose-900/10"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-16 animate-fade-in-up">
-              <Badge
-                variant="outline"
-                className="mb-6 text-amber-300 border-amber-200/30 bg-amber-50/10 px-6 py-2 backdrop-blur-sm"
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                Important Information
-              </Badge>
-              <h2 className="text-5xl lg:text-6xl font-light text-white mb-8 tracking-tight">
-                Program
-                <span className="block font-bold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-                  Details & Contact
-                </span>
-              </h2>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="p-8 bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-                <h3 className="text-2xl font-light text-slate-900 mb-6">Referral Procedure</h3>
-                <div className="space-y-4 text-slate-600 font-light">
-                  <p>• Candidates can be referred to any open position by contacting HR directly</p>
-                  <p>• If the candidate is offered and accepts the position, HR will contact the referring employee</p>
-                  <p>• Upon meeting requirements, apply for referral fees by providing the candidate name</p>
-                  <p>
-                    • Current job postings can be found at{" "}
-                    <Link href="/careers" className="text-amber-600 hover:underline">
-                      www.immensebrains.com/careers
-                    </Link>
-                  </p>
-                </div>
-              </Card>
-
-              <Card className="p-8 bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-                <h3 className="text-2xl font-light text-slate-900 mb-6">Contact Information</h3>
-                <div className="space-y-6">
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-full flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-slate-900 font-semibold">HR Department</p>
-                      <p className="text-slate-600 font-light">HR@immensebrains.com</p>
-                    </div>
+        {/* Referral Form */}
+        <Card className="border-0 shadow-2xl bg-white/90 backdrop-blur-sm print-hide">
+          <CardHeader className="pb-8">
+            <CardTitle className="text-3xl text-slate-900 text-center">Submit a Referral</CardTitle>
+            <CardDescription className="text-center text-lg text-slate-600">
+              Help us find your next amazing colleague
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-8">
+              {/* Referrer Information */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-slate-900 border-b border-slate-200 pb-2">
+                  Your Information
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="referrerName" className="block text-sm font-medium text-slate-700 mb-2">
+                      Your Name *
+                    </label>
+                    <Input
+                      id="referrerName"
+                      name="referrerName"
+                      value={formData.referrerName}
+                      onChange={handleInputChange}
+                      required
+                      className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                    />
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-rose-400 to-pink-500 rounded-full flex items-center justify-center">
-                      <Calendar className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-slate-900 font-semibold">Date of Posting</p>
-                      <p className="text-slate-600 font-light">June 26th, 2024</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-gradient-to-br from-violet-400 to-purple-500 rounded-full flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-slate-900 font-semibold">Office Location</p>
-                      <p className="text-slate-600 font-light">
-                        6760 Corporate Drive, Suite 100, Colorado Springs, CO 80919
-                      </p>
-                    </div>
+                  <div>
+                    <label htmlFor="referrerEmail" className="block text-sm font-medium text-slate-700 mb-2">
+                      Your Email *
+                    </label>
+                    <Input
+                      id="referrerEmail"
+                      name="referrerEmail"
+                      type="email"
+                      value={formData.referrerEmail}
+                      onChange={handleInputChange}
+                      required
+                      className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                    />
                   </div>
                 </div>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
+                <div>
+                  <label htmlFor="referrerDepartment" className="block text-sm font-medium text-slate-700 mb-2">
+                    Your Department *
+                  </label>
+                  <Input
+                    id="referrerDepartment"
+                    name="referrerDepartment"
+                    value={formData.referrerDepartment}
+                    onChange={handleInputChange}
+                    required
+                    className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                  />
+                </div>
+              </div>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-black relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-amber-400/10 to-yellow-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-rose-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
-        </div>
+              {/* Candidate Information */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-slate-900 border-b border-slate-200 pb-2">
+                  Candidate Information
+                </h3>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="candidateName" className="block text-sm font-medium text-slate-700 mb-2">
+                      Candidate Name *
+                    </label>
+                    <Input
+                      id="candidateName"
+                      name="candidateName"
+                      value={formData.candidateName}
+                      onChange={handleInputChange}
+                      required
+                      className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="candidateEmail" className="block text-sm font-medium text-slate-700 mb-2">
+                      Candidate Email *
+                    </label>
+                    <Input
+                      id="candidateEmail"
+                      name="candidateEmail"
+                      type="email"
+                      value={formData.candidateEmail}
+                      onChange={handleInputChange}
+                      required
+                      className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                    />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <label htmlFor="candidatePhone" className="block text-sm font-medium text-slate-700 mb-2">
+                      Candidate Phone
+                    </label>
+                    <Input
+                      id="candidatePhone"
+                      name="candidatePhone"
+                      type="tel"
+                      value={formData.candidatePhone}
+                      onChange={handleInputChange}
+                      className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="position" className="block text-sm font-medium text-slate-700 mb-2">
+                      Position of Interest *
+                    </label>
+                    <Input
+                      id="position"
+                      name="position"
+                      value={formData.position}
+                      onChange={handleInputChange}
+                      required
+                      className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                    />
+                  </div>
+                </div>
+              </div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-5xl mx-auto space-y-10 animate-fade-in-up">
-            <h2 className="text-6xl lg:text-7xl font-light text-white tracking-tight">
-              Questions About the
-              <span className="block font-bold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-                Referral Program?
-              </span>
-            </h2>
-            <p className="text-xl text-slate-300 leading-relaxed font-light max-w-3xl mx-auto">
-              Contact our HR department directly for any questions about the Employee Referral Program.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-8 justify-center pt-8">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-10 py-4 rounded-full shadow-2xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
-                asChild
-              >
-                <Link href="mailto:HR@immensebrains.com">
-                  <Mail className="mr-3 h-5 w-5" />
-                  Contact HR
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm bg-transparent px-10 py-4 rounded-full font-semibold transition-all duration-300 hover:border-amber-400/50"
-                asChild
-              >
-                <Link href="/careers">
-                  <Sparkles className="mr-3 h-5 w-5" />
-                  View Open Positions
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+              {/* Additional Information */}
+              <div className="space-y-6">
+                <h3 className="text-xl font-semibold text-slate-900 border-b border-slate-200 pb-2">
+                  Additional Information
+                </h3>
+                <div>
+                  <label htmlFor="relationship" className="block text-sm font-medium text-slate-700 mb-2">
+                    Your Relationship to Candidate *
+                  </label>
+                  <Input
+                    id="relationship"
+                    name="relationship"
+                    value={formData.relationship}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="e.g., Former colleague, Friend, Professional contact"
+                    className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="whyRecommend" className="block text-sm font-medium text-slate-700 mb-2">
+                    Why do you recommend this candidate? *
+                  </label>
+                  <Textarea
+                    id="whyRecommend"
+                    name="whyRecommend"
+                    value={formData.whyRecommend}
+                    onChange={handleInputChange}
+                    required
+                    rows={4}
+                    placeholder="Please describe the candidate's skills, experience, and why you think they'd be a great fit for our team..."
+                    className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="candidateResume" className="block text-sm font-medium text-slate-700 mb-2">
+                    Candidate Resume (Optional)
+                  </label>
+                  <Input
+                    id="candidateResume"
+                    name="candidateResume"
+                    type="file"
+                    onChange={handleFileChange}
+                    accept=".pdf,.doc,.docx"
+                    className="border-slate-300 focus:border-amber-500 focus:ring-amber-500"
+                  />
+                  <p className="text-sm text-slate-500 mt-1">Accepted formats: PDF, DOC, DOCX (Max 5MB)</p>
+                </div>
+              </div>
+
+              <div className="pt-6">
+                <Button
+                  type="submit"
+                  className="w-full bg-gradient-to-r from-amber-600 to-yellow-500 hover:from-amber-700 hover:to-yellow-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                >
+                  Submit Referral
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }

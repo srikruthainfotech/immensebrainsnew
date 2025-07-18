@@ -1,12 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { MapPin, Clock, DollarSign, Users, Search, Filter, Crown, Sparkles, Award, Briefcase } from "lucide-react"
+import { MapPin, Clock, DollarSign, Users, Search, Filter, Briefcase, Building2, Star } from "lucide-react"
 import Link from "next/link"
 
 interface Job {
@@ -17,306 +17,127 @@ interface Job {
   type: string
   salary: string
   description: string
-  fullDescription: string[]
   requirements: string[]
   benefits: string[]
   postedDate: string
   gradient: string
   accent: string
   openings: number
-  duties: string[]
-  education: string[]
-  experience: string[]
 }
 
 export default function CareersPage() {
-  const [jobs, setJobs] = useState<Job[]>([])
-  const [filteredJobs, setFilteredJobs] = useState<Job[]>([])
   const [searchTerm, setSearchTerm] = useState("")
   const [departmentFilter, setDepartmentFilter] = useState("all")
   const [locationFilter, setLocationFilter] = useState("all")
 
-  // Real job data from the posting notice - plain text format with paragraphs
-  useEffect(() => {
-    const realJobs: Job[] = [
-      {
-        id: 1,
-        title: "Software Developer - Oracle Fusion",
-        department: "Engineering",
-        location: "Colorado Springs, CO",
-        type: "Full-time",
-        salary: "$153,733.00",
-        description:
-          "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Work with Oracle Fusion systems and ensure smooth business operations.",
-        fullDescription: [
-          "IMMENSE BRAINS LLC has an opening for the position of Software Developer - Oracle Fusion (Job Code: IB-SD-OF-001) at 6760 Corporate Drive, Suite 100, Colorado Springs, CO 80919.",
-          "JOB DUTIES: Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Identify, analyze, and resolve issues within Oracle Fusion systems. Perform configuration tasks including workflows, roles, security profiles. Manage and validate data flows between Oracle Fusion and connected systems. Develop and run custom financial reports based on business needs. Troubleshoot integrations between Oracle Fusion and third-party applications.",
-          "REQUIREMENTS: Master's degree in Computer Science/IT/IS/Engineering/Business or related field with 6 months experience in the job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer. Alternatively, Bachelor's degree in Computer Science/IT/IS/Engineering/Business or related field plus 5 years of progressive work experience in the job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer. Must have 6 months experience working with Oracle Fusion or Oracle EBS. Travel and/or relocation to unanticipated client sites within USA required. International travel is not required.",
-          "SALARY: $153,733.00/year, 40 hours/week.",
-          "TO APPLY: Send resume to HR@immensebrains.com",
-          "Posted by: CEO Sai Nirukurti",
-          "Date: June 26th",
-        ],
-        requirements: [
-          "Master's degree in Computer Science/IT/IS/Engineering/Business or related field with 6 months experience",
-          "OR Bachelor's degree + 5 years progressive work experience",
-          "6 months experience with Oracle Fusion or Oracle EBS required",
-          "Travel/relocation to client sites throughout USA required",
-        ],
-        benefits: [
-          "$153,733.00/year salary",
-          "Full-time 40 hours/week",
-          "Client site experience",
-          "Professional development",
-        ],
-        postedDate: "June 26th",
-        gradient: "from-amber-400 to-yellow-500",
-        accent: "border-amber-200",
-        openings: 3,
-        duties: [
-          "Provide day-to-day support for Oracle Fusion applications (financials, procurement, HCM, supply chain)",
-          "Identify, analyze, and resolve issues within Oracle Fusion systems",
-          "Perform configuration tasks including workflows, roles, security profiles",
-          "Manage and validate data flows between Oracle Fusion and connected systems",
-          "Develop and run custom financial reports based on business needs",
-          "Troubleshoot integrations between Oracle Fusion and third-party applications",
-        ],
-        education: [
-          "Master's degree in Computer Science/IT/IS/Engineering/Business or related field with 6 months experience",
-          "OR Bachelor's degree in Computer Science/IT/IS/Engineering/Business or related field plus 5 years progressive work experience",
-        ],
-        experience: [
-          "6 months experience working with Oracle Fusion or Oracle EBS required",
-          "Travel and/or relocation to unanticipated client sites within USA required",
-          "International travel is not required",
-        ],
-      },
-      {
-        id: 2,
-        title: "Software Developer - Data Engineering",
-        department: "Engineering",
-        location: "Colorado Springs, CO",
-        type: "Full-time",
-        salary: "$145,309.00",
-        description:
-          "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations. Focus on ETL/ELT processes and data infrastructure.",
-        fullDescription: [
-          "IMMENSE BRAINS LLC has an opening for the position of Software Developer - Data Engineering (Job Code: IB-SD-DE-002) at 6760 Corporate Drive, Suite 100, Colorado Springs, CO 80919.",
-          "JOB DUTIES: Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations. Design and implement ETL/ELT pipelines from various sources to target systems. Build and automate workflows for batch and real-time data processing. Design and manage scalable, cost-efficient storage solutions. Implement data backup, replication, and disaster recovery strategies. Process, cleanse, and transform raw data into meaningful formats. Orchestrate complex workflows combining different data services. Ensure secure data in transit and at rest with encryption and access control.",
-          "REQUIREMENTS: Master's degree in Computer Science/IT/IS/Engineering or closely related field with 6 months experience in the job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer/Data Engineer. Must have 6 months experience working with ETL or Informatica. Travel and/or relocation to unanticipated client sites within USA required. International travel is not required.",
-          "SALARY: $145,309.00/year, 40 hours/week.",
-          "TO APPLY: Send resume to HR@immensebrains.com",
-          "Posted by: CEO Sai Nirukurti",
-          "Date: June 26th",
-        ],
-        requirements: [
-          "Master's degree in Computer Science/IT/IS/Engineering or closely related field",
-          "6 months experience in job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer/Data Engineer",
-          "6 months experience with ETL or Informatica required",
-          "Travel/relocation to client sites throughout USA required",
-        ],
-        benefits: [
-          "$145,309.00/year salary",
-          "Full-time 40 hours/week",
-          "Data engineering expertise",
-          "Client site experience",
-        ],
-        postedDate: "June 26th",
-        gradient: "from-emerald-400 to-teal-500",
-        accent: "border-emerald-200",
-        openings: 3,
-        duties: [
-          "Design, build and manage scalable data systems and pipelines",
-          "Design and implement ETL/ELT pipelines from various sources to target systems",
-          "Build and automate workflows for batch and real-time data processing",
-          "Design and manage scalable, cost-efficient storage solutions",
-          "Implement data backup, replication, and disaster recovery strategies",
-          "Process, cleanse, and transform raw data into meaningful formats",
-          "Orchestrate complex workflows combining different data services",
-          "Ensure secure data in transit and at rest with encryption and access control",
-        ],
-        education: [
-          "Master's degree in Computer Science/IT/IS/Engineering or closely related field with 6 months experience in the job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer/Data Engineer",
-        ],
-        experience: [
-          "6 months experience working with ETL or Informatica required",
-          "Travel and/or relocation to unanticipated client sites within USA required",
-          "International travel is not required",
-        ],
-      },
-    ]
-    setJobs(realJobs)
-    setFilteredJobs(realJobs)
-  }, [])
-
-  // Filter jobs based on search and filters
-  useEffect(() => {
-    let filtered = jobs
-
-    if (searchTerm) {
-      filtered = filtered.filter(
-        (job) =>
-          job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          job.description.toLowerCase().includes(searchTerm.toLowerCase()),
-      )
-    }
-
-    if (departmentFilter !== "all") {
-      filtered = filtered.filter((job) => job.department === departmentFilter)
-    }
-
-    if (locationFilter !== "all") {
-      filtered = filtered.filter((job) => job.location.includes(locationFilter))
-    }
-
-    setFilteredJobs(filtered)
-  }, [searchTerm, departmentFilter, locationFilter, jobs])
-
-  const departments = [...new Set(jobs.map((job) => job.department))]
-  const locations = [...new Set(jobs.map((job) => job.location.split(",")[1]?.trim() || job.location))]
-
-  const benefits = [
+  // Real job data from the posting notice
+  const jobs: Job[] = [
     {
-      icon: Users,
-      title: "Great Team",
-      description: "Work with talented professionals who are passionate about technology",
+      id: 1,
+      title: "Software Developer - Oracle Fusion",
+      department: "Engineering",
+      location: "Colorado Springs, CO",
+      type: "Full-time",
+      salary: "$153,733.00",
+      description:
+        "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Work with Oracle Fusion systems and ensure smooth business operations.",
+      requirements: [
+        "Master's degree in Computer Science/IT/IS/Engineering/Business or related field with 6 months experience",
+        "OR Bachelor's degree + 5 years progressive work experience",
+        "6 months experience with Oracle Fusion or Oracle EBS required",
+        "Travel/relocation to client sites throughout USA required",
+      ],
+      benefits: [
+        "$153,733.00/year salary",
+        "Full-time 40 hours/week",
+        "Client site experience",
+        "Professional development",
+      ],
+      postedDate: "June 26th",
       gradient: "from-amber-400 to-yellow-500",
+      accent: "border-amber-200",
+      openings: 3,
     },
     {
-      icon: DollarSign,
-      title: "Competitive Pay",
-      description: "Attractive salary packages with performance bonuses and growth opportunities",
-      gradient: "from-rose-400 to-pink-500",
-    },
-    {
-      icon: Clock,
-      title: "Work-Life Balance",
-      description: "Full-time positions with professional development opportunities",
+      id: 2,
+      title: "Software Developer - Data Engineering",
+      department: "Engineering",
+      location: "Colorado Springs, CO",
+      type: "Full-time",
+      salary: "$145,309.00",
+      description:
+        "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations. Focus on ETL/ELT processes and data infrastructure.",
+      requirements: [
+        "Master's degree in Computer Science/IT/IS/Engineering or closely related field",
+        "6 months experience in job offered or as IT Consultant/Analyst/Engineer/Programmer/Developer/Data Engineer",
+        "6 months experience with ETL or Informatica required",
+        "Travel/relocation to client sites throughout USA required",
+      ],
+      benefits: [
+        "$145,309.00/year salary",
+        "Full-time 40 hours/week",
+        "Data engineering expertise",
+        "Client site experience",
+      ],
+      postedDate: "June 26th",
       gradient: "from-emerald-400 to-teal-500",
-    },
-    {
-      icon: Award,
-      title: "Growth Opportunities",
-      description: "Client site experience, continuous learning, and career advancement",
-      gradient: "from-violet-400 to-purple-500",
+      accent: "border-emerald-200",
+      openings: 3,
     },
   ]
 
+  const filteredJobs = jobs.filter((job) => {
+    const matchesSearch =
+      job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      job.description.toLowerCase().includes(searchTerm.toLowerCase())
+    const matchesDepartment = departmentFilter === "all" || job.department === departmentFilter
+    const matchesLocation = locationFilter === "all" || job.location === locationFilter
+
+    return matchesSearch && matchesDepartment && matchesLocation
+  })
+
+  const departments = [...new Set(jobs.map((job) => job.department))]
+  const locations = [...new Set(jobs.map((job) => job.location))]
+
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-slate-50">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-black py-24 lg:py-32 overflow-hidden">
-        {/* Clean luxury background elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-amber-400/10 to-yellow-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-rose-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-br from-violet-400/5 to-purple-600/5 rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 pt-20 print:pt-0 print:bg-white">
+      <div className="container mx-auto px-4 py-12 print:px-0 print:py-4">
+        {/* Hero Section */}
+        <div className="text-center mb-16 print:mb-8">
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-100 to-yellow-100 px-6 py-3 rounded-full mb-6 print:bg-gray-100 print:mb-4">
+            <Star className="h-5 w-5 text-amber-600 print:text-black" />
+            <span className="text-amber-800 font-medium print:text-black">Join Our Growing Team</span>
+          </div>
+          <h1 className="text-5xl lg:text-6xl font-light text-slate-900 mb-6 print:text-3xl print:mb-4">
+            Career{" "}
+            <span className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 bg-clip-text text-transparent print:text-black">
+              Opportunities
+            </span>
+          </h1>
+          <p className="text-xl text-slate-600 max-w-3xl mx-auto font-light leading-relaxed print:text-base print:text-black">
+            Build your career with Immense Brains LLC. We offer competitive salaries, professional development, and the
+            opportunity to work with cutting-edge technology across various client sites in the USA.
+          </p>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="text-center max-w-5xl mx-auto animate-fade-in-up">
-            <Badge
-              variant="outline"
-              className="mb-6 text-amber-300 border-amber-200/30 bg-amber-50/10 px-6 py-2 backdrop-blur-sm"
-            >
-              <Briefcase className="w-4 h-4 mr-2" />
-              Join Our Team
-            </Badge>
-            <h1 className="text-6xl lg:text-8xl font-light text-white leading-tight tracking-tight mb-8">
-              Build Your Career with
-              <span className="block font-bold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-                Immense Brains
-              </span>
-            </h1>
-            <p className="text-xl text-slate-300 leading-relaxed font-light max-w-4xl mx-auto">
-              Join a team of passionate innovators and help shape the future of technology. We offer exciting
-              opportunities, competitive benefits, and a culture of continuous learning.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits Section */}
-      <section className="py-24 bg-gradient-to-b from-white via-slate-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-20 animate-fade-in-up">
-            <Badge variant="outline" className="mb-6 text-amber-600 border-amber-200 bg-amber-50 px-6 py-2">
-              <Crown className="w-4 h-4 mr-2" />
-              Why Work With Us?
-            </Badge>
-            <h2 className="text-5xl lg:text-6xl font-light text-slate-900 mb-8 tracking-tight">
-              Exceptional
-              <span className="block font-bold bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 bg-clip-text text-transparent">
-                Benefits & Culture
-              </span>
-            </h2>
-            <p className="text-xl text-slate-600 max-w-4xl mx-auto font-light leading-relaxed">
-              We believe in creating an environment where our team members can thrive and grow.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {benefits.map((benefit, index) => (
-              <Card
-                key={index}
-                className="text-center p-8 hover:shadow-2xl transition-all duration-700 border-0 bg-white/80 backdrop-blur-sm hover:scale-105 animate-fade-in-up shadow-lg relative overflow-hidden"
-                style={{ animationDelay: `${index * 150}ms` }}
-              >
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${benefit.gradient}`}></div>
-                <div
-                  className={`w-20 h-20 rounded-3xl bg-gradient-to-br ${benefit.gradient} flex items-center justify-center text-white mb-6 mx-auto shadow-xl relative`}
-                >
-                  <div className="absolute inset-0 bg-white/20 rounded-3xl blur-xl"></div>
-                  <benefit.icon className="h-10 w-10 relative z-10" />
-                </div>
-                <h3 className="font-semibold text-slate-900 text-xl mb-4">{benefit.title}</h3>
-                <p className="text-slate-600 text-base font-light leading-relaxed">{benefit.description}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Job Listings */}
-      <section className="py-24 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-amber-900/10 via-transparent to-rose-900/10"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="mb-16">
-            <div className="text-center mb-12 animate-fade-in-up">
-              <Badge
-                variant="outline"
-                className="mb-6 text-amber-300 border-amber-200/30 bg-amber-50/10 px-6 py-2 backdrop-blur-sm"
-              >
-                <Award className="w-4 h-4 mr-2" />
-                Open Positions
-              </Badge>
-              <h2 className="text-5xl lg:text-6xl font-light text-white mb-8 tracking-tight">
-                Current
-                <span className="block font-bold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-                  Opportunities
-                </span>
-              </h2>
-              <p className="text-xl text-slate-300 max-w-4xl mx-auto font-light leading-relaxed">
-                Posted by CEO Sai Nirukurti on June 26th - Multiple openings available
-              </p>
-            </div>
-
-            {/* Search and Filters */}
-            <div className="flex flex-col md:flex-row gap-6 mb-12">
-              <div className="relative flex-1">
+        {/* Search and Filters */}
+        <div className="bg-white rounded-3xl shadow-xl p-8 mb-12 border border-slate-200/50 print:hidden">
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="md:col-span-2">
+              <div className="relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 h-5 w-5" />
                 <Input
-                  placeholder="Search jobs..."
+                  placeholder="Search positions..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-12 h-14 text-lg bg-white/90 backdrop-blur-sm border-white/20"
+                  className="pl-12 h-12 bg-slate-50 border-slate-200 focus:border-amber-300 focus:ring-amber-200"
                 />
               </div>
-
+            </div>
+            <div>
               <Select value={departmentFilter} onValueChange={setDepartmentFilter}>
-                <SelectTrigger className="w-full md:w-56 h-14 bg-white/90 backdrop-blur-sm border-white/20">
-                  <Filter className="h-5 w-5 mr-2" />
+                <SelectTrigger className="h-12 bg-slate-50 border-slate-200">
+                  <Filter className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="Department" />
                 </SelectTrigger>
                 <SelectContent>
@@ -328,10 +149,11 @@ export default function CareersPage() {
                   ))}
                 </SelectContent>
               </Select>
-
+            </div>
+            <div>
               <Select value={locationFilter} onValueChange={setLocationFilter}>
-                <SelectTrigger className="w-full md:w-56 h-14 bg-white/90 backdrop-blur-sm border-white/20">
-                  <MapPin className="h-5 w-5 mr-2" />
+                <SelectTrigger className="h-12 bg-slate-50 border-slate-200">
+                  <MapPin className="h-4 w-4 mr-2" />
                   <SelectValue placeholder="Location" />
                 </SelectTrigger>
                 <SelectContent>
@@ -345,193 +167,185 @@ export default function CareersPage() {
               </Select>
             </div>
           </div>
+        </div>
 
-          {/* Job Cards */}
-          <div className="space-y-8">
-            {filteredJobs.length === 0 ? (
-              <Card className="p-12 text-center bg-white/90 backdrop-blur-sm border-0 shadow-xl">
-                <p className="text-slate-600 text-xl font-light">No jobs found matching your criteria.</p>
-              </Card>
-            ) : (
-              filteredJobs.map((job, index) => (
-                <Card
-                  key={job.id}
-                  className="p-8 hover:shadow-2xl transition-all duration-500 bg-white/90 backdrop-blur-sm border-0 shadow-lg relative overflow-hidden animate-fade-in-up"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${job.gradient}`}></div>
-                  <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6">
+        {/* Job Listings */}
+        <div className="space-y-8 print:space-y-4">
+          {filteredJobs.length === 0 ? (
+            <Card className="text-center p-12 print:p-6">
+              <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6 print:w-12 print:h-12 print:mb-4">
+                <Briefcase className="h-10 w-10 text-slate-400 print:h-6 print:w-6" />
+              </div>
+              <h3 className="text-2xl font-light text-slate-900 mb-4 print:text-xl print:mb-2">No positions found</h3>
+              <p className="text-slate-600 print:text-black">
+                Try adjusting your search criteria or check back later for new opportunities.
+              </p>
+            </Card>
+          ) : (
+            filteredJobs.map((job) => (
+              <Card
+                key={job.id}
+                className={`group hover:shadow-2xl transition-all duration-500 border-0 bg-white/90 backdrop-blur-sm hover:bg-white hover:scale-[1.02] ${job.accent} print:shadow-none print:border print:border-gray-300 print:bg-white print:hover:scale-100`}
+              >
+                <CardContent className="p-8 lg:p-10 print:p-6">
+                  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
                     <div className="flex-1">
-                      <div className="flex flex-wrap items-center gap-4 mb-4">
+                      <div className="flex items-start gap-6 mb-6">
                         <div
-                          className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${job.gradient} flex items-center justify-center text-white shadow-lg`}
+                          className={`w-16 h-16 rounded-3xl bg-gradient-to-br ${job.gradient} flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-500 print:bg-gray-200 print:shadow-none print:group-hover:scale-100`}
                         >
-                          <Briefcase className="h-6 w-6" />
+                          <Briefcase className="h-8 w-8 text-white print:text-black" />
                         </div>
-                        <div>
-                          <h3 className="text-2xl font-light text-slate-900">{job.title}</h3>
-                          <div className="flex flex-wrap gap-2 mt-2">
-                            <Badge variant="outline" className={`${job.accent} text-amber-600 bg-amber-50/50`}>
-                              {job.department}
-                            </Badge>
-                            <Badge variant="outline" className="text-emerald-600 border-emerald-200 bg-emerald-50/50">
+                        <div className="flex-1">
+                          <div className="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 className="text-2xl lg:text-3xl font-light text-slate-900 print:text-xl">
+                              {job.title}
+                            </h3>
+                            <Badge className="bg-emerald-100 text-emerald-700 border-emerald-200 print:bg-gray-100 print:text-black print:border-gray-300">
                               {job.openings} Openings
                             </Badge>
+                            <Badge className="bg-blue-100 text-blue-700 border-blue-200 print:bg-gray-100 print:text-black print:border-gray-300">
+                              Posted {job.postedDate}
+                            </Badge>
                           </div>
-                        </div>
-                      </div>
+                          <p className="text-slate-600 font-light leading-relaxed mb-6 print:text-black print:text-sm">
+                            {job.description}
+                          </p>
 
-                      <p className="text-slate-600 mb-6 text-lg font-light leading-relaxed">{job.description}</p>
-
-                      <div className="grid md:grid-cols-2 gap-6 mb-6">
-                        <div>
-                          <h4 className="font-semibold text-slate-900 mb-3">Key Requirements:</h4>
-                          <ul className="space-y-2">
-                            {job.requirements.slice(0, 3).map((req, reqIndex) => (
-                              <li key={reqIndex} className="flex items-start text-slate-600 text-sm">
-                                <div className="w-2 h-2 bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                {req}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-slate-900 mb-3">What We Offer:</h4>
-                          <ul className="space-y-2">
-                            {job.benefits.map((benefit, benefitIndex) => (
-                              <li key={benefitIndex} className="flex items-start text-slate-600 text-sm">
-                                <div className="w-2 h-2 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                                {benefit}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-
-                      <div className="flex flex-wrap gap-6 text-base text-slate-500">
-                        <div className="flex items-center gap-2">
-                          <MapPin className="h-5 w-5" />
-                          {job.location}
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Clock className="h-5 w-5" />
-                          {job.type} - 40 hours/week
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <DollarSign className="h-5 w-5" />
-                          {job.salary}/year
+                          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 print:grid-cols-2 print:gap-2">
+                            <div className="flex items-center gap-3">
+                              <Building2 className="h-5 w-5 text-slate-400 print:text-black" />
+                              <span className="text-slate-600 font-light print:text-black print:text-sm">
+                                {job.department}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <MapPin className="h-5 w-5 text-slate-400 print:text-black" />
+                              <span className="text-slate-600 font-light print:text-black print:text-sm">
+                                {job.location}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <Clock className="h-5 w-5 text-slate-400 print:text-black" />
+                              <span className="text-slate-600 font-light print:text-black print:text-sm">
+                                {job.type}
+                              </span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <DollarSign className="h-5 w-5 text-slate-400 print:text-black" />
+                              <span className="text-slate-600 font-light print:text-black print:text-sm">
+                                {job.salary}/year
+                              </span>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row gap-4">
-                      <Button variant="outline" size="lg" className="bg-white/50 backdrop-blur-sm" asChild>
+                    <div className="flex flex-col sm:flex-row gap-4 print:hidden">
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="bg-transparent hover:bg-slate-50 border-slate-300 text-slate-700 px-8 py-4 rounded-full transition-all duration-300"
+                        asChild
+                      >
                         <Link href={`/careers/${job.id}`}>View Details</Link>
                       </Button>
                       <Button
                         size="lg"
-                        className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
+                        className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
                         asChild
                       >
-                        <Link href={`/careers/${job.id}/apply`}>
-                          <Sparkles className="mr-2 h-5 w-5" />
-                          Apply Now
-                        </Link>
+                        <Link href={`/careers/${job.id}/apply`}>Apply Now</Link>
                       </Button>
                     </div>
                   </div>
-                </Card>
-              ))
-            )}
-          </div>
+                </CardContent>
+              </Card>
+            ))
+          )}
         </div>
-      </section>
 
-      {/* Company Info */}
-      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="mb-12 animate-fade-in-up">
-              <Badge variant="outline" className="mb-6 text-amber-600 border-amber-200 bg-amber-50 px-6 py-2">
-                <MapPin className="w-4 h-4 mr-2" />
-                Our Location
-              </Badge>
-              <h2 className="text-5xl lg:text-6xl font-light text-slate-900 mb-8 tracking-tight">
-                Join Us in
-                <span className="block font-bold bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 bg-clip-text text-transparent">
-                  Colorado Springs
-                </span>
-              </h2>
-            </div>
+        {/* Company Benefits Section */}
+        <div className="mt-20 print:mt-8">
+          <div className="text-center mb-12 print:mb-6">
+            <h2 className="text-4xl font-light text-slate-900 mb-4 print:text-2xl print:mb-2">Why Work With Us?</h2>
+            <p className="text-xl text-slate-600 font-light print:text-base print:text-black">
+              Join a company that values your growth and success
+            </p>
+          </div>
 
-            <Card className="p-10 shadow-2xl border-0 bg-white/90 backdrop-blur-sm">
-              <div className="text-center space-y-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl flex items-center justify-center text-white mx-auto shadow-xl">
-                  <MapPin className="h-10 w-10" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-light text-slate-900 mb-4">Immense Brains LLC</h3>
-                  <div className="text-lg text-slate-600 font-light space-y-2">
-                    <p>6760 Corporate Drive, Suite 100</p>
-                    <p>Colorado Springs, CO 80919</p>
-                  </div>
-                </div>
-                <div className="pt-6 border-t border-slate-200">
-                  <p className="text-slate-600 font-light leading-relaxed">
-                    We provide Information Technology services to various clients across the USA. Our projects may
-                    require travel and/or relocation to unanticipated client sites throughout the United States.
-                  </p>
-                </div>
+          <div className="grid md:grid-cols-3 gap-8 print:grid-cols-1 print:gap-4">
+            <Card className="text-center p-8 bg-gradient-to-br from-amber-50 to-yellow-50 border-amber-200/50 print:bg-white print:border print:border-gray-300 print:p-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-3xl flex items-center justify-center mx-auto mb-6 print:bg-gray-200 print:mb-4">
+                <DollarSign className="h-8 w-8 text-white print:text-black" />
               </div>
+              <h3 className="text-2xl font-light text-slate-900 mb-4 print:text-xl print:mb-2">Competitive Salaries</h3>
+              <p className="text-slate-600 font-light print:text-black print:text-sm">
+                We offer industry-leading compensation packages with salaries ranging from $145K to $154K annually.
+              </p>
+            </Card>
+
+            <Card className="text-center p-8 bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200/50 print:bg-white print:border print:border-gray-300 print:p-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-3xl flex items-center justify-center mx-auto mb-6 print:bg-gray-200 print:mb-4">
+                <Users className="h-8 w-8 text-white print:text-black" />
+              </div>
+              <h3 className="text-2xl font-light text-slate-900 mb-4 print:text-xl print:mb-2">
+                Client Site Experience
+              </h3>
+              <p className="text-slate-600 font-light print:text-black print:text-sm">
+                Work directly with clients across the USA, gaining valuable experience and expanding your professional
+                network.
+              </p>
+            </Card>
+
+            <Card className="text-center p-8 bg-gradient-to-br from-violet-50 to-purple-50 border-violet-200/50 print:bg-white print:border print:border-gray-300 print:p-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-violet-400 to-purple-500 rounded-3xl flex items-center justify-center mx-auto mb-6 print:bg-gray-200 print:mb-4">
+                <Star className="h-8 w-8 text-white print:text-black" />
+              </div>
+              <h3 className="text-2xl font-light text-slate-900 mb-4 print:text-xl print:mb-2">Professional Growth</h3>
+              <p className="text-slate-600 font-light print:text-black print:text-sm">
+                Advance your career with cutting-edge technology projects and continuous learning opportunities.
+              </p>
             </Card>
           </div>
         </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-900 via-slate-800 to-black relative overflow-hidden">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-amber-400/10 to-yellow-600/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-rose-400/10 to-pink-600/10 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
-        </div>
-
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-5xl mx-auto space-y-10 animate-fade-in-up">
-            <h2 className="text-6xl lg:text-7xl font-light text-white tracking-tight">
-              Ready to Join Our
-              <span className="block font-bold bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 bg-clip-text text-transparent">
-                Growing Team?
-              </span>
-            </h2>
-            <p className="text-xl text-slate-300 leading-relaxed font-light max-w-3xl mx-auto">
-              Apply now for our open positions or refer a qualified candidate through our Employee Referral Program.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-8 justify-center pt-8">
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-10 py-4 rounded-full shadow-2xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
-                asChild
-              >
-                <Link href="/contact">
-                  <Crown className="mr-3 h-5 w-5" />
-                  Contact Us
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white/30 text-white hover:bg-white/10 backdrop-blur-sm bg-transparent px-10 py-4 rounded-full font-semibold transition-all duration-300 hover:border-amber-400/50"
-                asChild
-              >
-                <Link href="/employee-referral">
-                  <Sparkles className="mr-3 h-5 w-5" />
-                  Employee Referral
-                </Link>
-              </Button>
+        {/* Contact Section */}
+        <div className="mt-20 text-center print:mt-8">
+          <Card className="bg-gradient-to-br from-slate-900 via-slate-800 to-black text-white p-12 rounded-3xl relative overflow-hidden print:bg-white print:text-black print:border print:border-gray-300 print:p-6">
+            <div className="absolute inset-0 overflow-hidden print:hidden">
+              <div className="absolute -top-20 -right-20 w-48 h-48 bg-gradient-to-br from-amber-400/10 to-yellow-600/10 rounded-full blur-3xl"></div>
+              <div className="absolute -bottom-20 -left-20 w-48 h-48 bg-gradient-to-br from-emerald-400/10 to-teal-600/10 rounded-full blur-3xl"></div>
             </div>
-          </div>
+            <div className="relative z-10">
+              <h2 className="text-4xl font-light mb-4 print:text-2xl print:mb-2 print:text-black">
+                Ready to Join Our Team?
+              </h2>
+              <p className="text-xl font-light mb-8 text-white/90 print:text-base print:mb-4 print:text-black">
+                Send your resume to HR@immensebrains.com or contact us for more information.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center print:hidden">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
+                  asChild
+                >
+                  <Link href="/contact">Contact HR</Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="bg-transparent hover:bg-white/10 border-white/30 text-white px-8 py-4 rounded-full transition-all duration-300"
+                  asChild
+                >
+                  <Link href="/employee-referral">Employee Referral</Link>
+                </Button>
+              </div>
+            </div>
+          </Card>
         </div>
-      </section>
+      </div>
     </div>
   )
 }

@@ -12,7 +12,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Immense Brains - Luxury Software Development",
+  title: "Immense Brains - IT Consulting and Development Services",
   description: "Crafting extraordinary software solutions with unparalleled attention to detail and sophistication.",
     generator: 'v0.dev'
 }
