@@ -70,547 +70,132 @@
   }
 }
 
-/* Luxury animations */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fade-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes luxury-gradient {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes luxury-float {
-  0%,
-  100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes luxury-glow {
-  0%,
-  100% {
-    box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(251, 191, 36, 0.6);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fade-in-up 1s ease-out forwards;
-}
-
-.animate-fade-in-left {
-  animation: fade-in-left 1s ease-out forwards;
-}
-
-.animate-fade-in-right {
-  animation: fade-in-right 1s ease-out forwards;
-}
-
-.animate-luxury-gradient {
-  background-size: 400% 400%;
-  animation: luxury-gradient 6s ease infinite;
-}
-
-.animate-luxury-float {
-  animation: luxury-float 3s ease-in-out infinite;
-}
-
-.animate-luxury-glow {
-  animation: luxury-glow 2s ease-in-out infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
-/* Luxury gradient text */
-.luxury-gradient-text {
-  background: linear-gradient(-45deg, #f59e0b, #eab308, #f97316, #ef4444);
-  background-size: 400% 400%;
-  animation: luxury-gradient 4s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Luxury scrollbar */
-::-webkit-scrollbar {
-  width: 12px;
-}
-
-::-webkit-scrollbar-track {
-  background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(45deg, #f59e0b 0%, #eab308 100%);
-  border-radius: 6px;
-  border: 2px solid #f8fafc;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(45deg, #d97706 0%, #ca8a04 100%);
-}
-
-/* Luxury glassmorphism */
-.luxury-glass {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
-}
-
-/* Luxury hover effects */
-.luxury-hover {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.luxury-hover:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 32px 64px rgba(0, 0, 0, 0.15);
-}
-
-/* Luxury button effects */
-.luxury-button {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.luxury-button::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-  transition: left 0.6s;
-}
-
-.luxury-button:hover::before {
-  left: 100%;
-}
-
-/* Luxury text selection */
-::selection {
-  background: rgba(251, 191, 36, 0.3);
-  color: #1f2937;
-}
-
-/* Luxury focus states */
-.luxury-focus:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.3);
-}
-
-/* Premium typography */
-.luxury-heading {
-  font-weight: 300;
-  letter-spacing: -0.025em;
-  line-height: 1.1;
-}
-
-.luxury-subheading {
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.3;
-}
-
-.luxury-body {
-  font-weight: 300;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-}
-
-/* Luxury card effects */
-.luxury-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.8) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.luxury-card:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.9) 100%);
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-}
-
-/* Print Styles for Job Postings and Employee Referral */
+/* Print Styles for Job Posting Notice */
 @media print {
   @page {
     margin: 1in;
     size: letter;
   }
 
-  body {
-    -webkit-print-color-adjust: exact;
-    color-adjust: exact;
-    font-size: 12pt;
-    line-height: 1.4;
+  /* Hide all web content except print content */
+  body * {
+    visibility: hidden !important;
   }
 
-  /* Hide elements that shouldn't print */
-  .print\:hidden {
-    display: none !important;
+  /* Show only print content */
+  .print-content,
+  .print-content * {
+    visibility: visible !important;
   }
 
-  /* Show elements only when printing */
-  .print\:block {
-    display: block !important;
-  }
-
-  .print\:mb-8 {
-    margin-bottom: 2rem !important;
-  }
-
-  .print\:mb-6 {
-    margin-bottom: 1.5rem !important;
-  }
-
-  .print\:mb-4 {
-    margin-bottom: 1rem !important;
-  }
-
-  .print\:mb-3 {
-    margin-bottom: 0.75rem !important;
-  }
-
-  .print\:mb-2 {
-    margin-bottom: 0.5rem !important;
-  }
-
-  .print\:mb-1 {
-    margin-bottom: 0.25rem !important;
-  }
-
-  .print\:py-8 {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
-  }
-
-  .print\:p-6 {
-    padding: 1.5rem !important;
-  }
-
-  .print\:p-4 {
-    padding: 1rem !important;
-  }
-
-  .print\:px-0 {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  .print\:pt-0 {
-    padding-top: 0 !important;
-  }
-
-  .print\:bg-white {
-    background-color: white !important;
-    background-image: none !important;
-  }
-
-  .print\:text-black {
-    color: black !important;
-  }
-
-  .print\:text-sm {
-    font-size: 0.875rem !important;
-  }
-
-  .print\:text-base {
-    font-size: 1rem !important;
-  }
-
-  .print\:text-lg {
-    font-size: 1.125rem !important;
-  }
-
-  .print\:text-xl {
-    font-size: 1.25rem !important;
-  }
-
-  .print\:text-2xl {
-    font-size: 1.5rem !important;
-  }
-
-  .print\:font-bold {
-    font-weight: 700 !important;
-  }
-
-  .print\:font-semibold {
-    font-weight: 600 !important;
-  }
-
-  .print\:border {
-    border: 1px solid #d1d5db !important;
-  }
-
-  .print\:border-t {
-    border-top: 1px solid #d1d5db !important;
-  }
-
-  .print\:border-gray-300 {
-    border-color: #d1d5db !important;
-  }
-
-  .print\:rounded-none {
-    border-radius: 0 !important;
-  }
-
-  .print\:grid-cols-1 {
-    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-  }
-
-  .print\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  }
-
-  .print\:gap-4 {
-    gap: 1rem !important;
-  }
-
-  .print\:gap-6 {
-    gap: 1.5rem !important;
-  }
-
-  .print\:space-y-2 > * + * {
-    margin-top: 0.5rem !important;
-  }
-
-  .print\:space-y-3 > * + * {
-    margin-top: 0.75rem !important;
-  }
-
-  .print\:space-y-4 > * + * {
-    margin-top: 1rem !important;
-  }
-
-  .print\:space-y-6 > * + * {
-    margin-top: 1.5rem !important;
-  }
-
-  .print\:space-x-2 > * + * {
-    margin-left: 0.5rem !important;
-  }
-
-  .print\:space-x-3 > * + * {
-    margin-left: 0.75rem !important;
-  }
-
-  .print\:w-2 {
-    width: 0.5rem !important;
-  }
-
-  .print\:h-2 {
-    height: 0.5rem !important;
-  }
-
-  .print\:w-4 {
-    width: 1rem !important;
-  }
-
-  .print\:h-4 {
-    height: 1rem !important;
-  }
-
-  .print\:w-6 {
-    width: 1.5rem !important;
-  }
-
-  .print\:h-6 {
-    height: 1.5rem !important;
-  }
-
-  .print\:w-8 {
-    width: 2rem !important;
-  }
-
-  .print\:h-8 {
-    height: 2rem !important;
-  }
-
-  .print\:w-10 {
-    width: 2.5rem !important;
-  }
-
-  .print\:h-10 {
-    height: 2.5rem !important;
-  }
-
-  .print\:w-12 {
-    width: 3rem !important;
-  }
-
-  .print\:h-12 {
-    height: 3rem !important;
-  }
-
-  .print\:mt-1 {
-    margin-top: 0.25rem !important;
-  }
-
-  .print\:bg-black {
-    background-color: black !important;
-  }
-
-  .print\:bg-gray-200 {
-    background-color: #e5e7eb !important;
-  }
-
-  .print\:text-left {
-    text-align: left !important;
-  }
-
-  .print\:inline {
-    display: inline !important;
-  }
-
-  .print\:max-w-none {
-    max-width: none !important;
-  }
-
-  .print\:mx-0 {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-  }
-
-  .print\:shadow-none {
-    box-shadow: none !important;
-  }
-
-  .print\:hover\:scale-100:hover {
-    transform: scale(1) !important;
-  }
-
-  /* Ensure proper page breaks */
-  .print\:break-inside-avoid {
-    break-inside: avoid;
-  }
-
-  /* Style cards for print */
-  .shadow-xl {
-    box-shadow: none !important;
-    border: 1px solid #e5e7eb !important;
-  }
-
-  /* Remove gradients and backgrounds for print */
-  .bg-gradient-to-br,
-  .bg-gradient-to-r,
-  .bg-gradient-to-b {
+  .print-content {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
     background: white !important;
-  }
-
-  /* Ensure text is readable in print */
-  .text-white {
     color: black !important;
+    font-family: "Times New Roman", Times, serif !important;
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
   }
 
-  .text-slate-300,
-  .text-slate-600,
-  .text-slate-900 {
+  /* Typography for print */
+  .print-content h1,
+  .print-content h2,
+  .print-content h3,
+  .print-content h4,
+  .print-content h5,
+  .print-content h6 {
+    font-family: "Times New Roman", Times, serif !important;
     color: black !important;
+    font-weight: bold !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  /* Style badges for print */
-  .bg-white\/20,
-  .bg-white\/80,
-  .bg-white\/90 {
-    background-color: #f3f4f6 !important;
+  .print-content p,
+  .print-content div,
+  .print-content span {
+    font-family: "Times New Roman", Times, serif !important;
     color: black !important;
-    border: 1px solid #d1d5db !important;
+    font-size: 12pt !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  /* Remove hover effects and transitions */
-  * {
-    transition: none !important;
-    transform: none !important;
-    animation: none !important;
-  }
-
-  /* Print-specific typography */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: black !important;
-    page-break-after: avoid;
-  }
-
-  p {
-    color: black !important;
-    orphans: 3;
-    widows: 3;
-  }
-
-  /* Ensure links are visible in print */
-  a {
-    color: black !important;
+  /* Job posting specific styles */
+  .print-content .job-posting-header {
+    text-align: center !important;
+    font-weight: bold !important;
+    font-size: 16pt !important;
+    margin-bottom: 24pt !important;
     text-decoration: underline !important;
   }
 
-  /* Hide decorative elements */
-  .absolute,
-  .fixed {
-    display: none !important;
+  .print-content .posting-date {
+    text-align: right !important;
+    margin-bottom: 24pt !important;
+    font-weight: bold !important;
   }
 
-  /* Ensure proper spacing for print layout */
-  .container {
-    max-width: none !important;
-    padding: 0 !important;
+  .print-content .job-section {
+    margin-bottom: 20pt !important;
+    display: block !important;
+    width: 100% !important;
+    page-break-inside: avoid !important;
+  }
+
+  .print-content .section-label {
+    font-weight: bold !important;
+    font-size: 12pt !important;
+    display: inline-block !important;
+    width: 140pt !important;
+    vertical-align: top !important;
+    margin-right: 20pt !important;
+    text-transform: uppercase !important;
+  }
+
+  .print-content .section-content {
+    display: inline-block !important;
+    width: calc(100% - 160pt) !important;
+    vertical-align: top !important;
+    text-align: justify !important;
+    line-height: 1.4 !important;
+  }
+
+  .print-content .section-content p {
+    margin-bottom: 8pt !important;
+    text-indent: 0 !important;
+  }
+
+  .print-content .signature-section {
+    margin-top: 48pt !important;
+    border-top: 1pt solid black !important;
+    padding-top: 24pt !important;
+    page-break-inside: avoid !important;
+  }
+
+  .print-content .signature-line {
+    margin-top: 12pt !important;
+    border-bottom: 1pt solid black !important;
+    width: 200pt !important;
+    height: 20pt !important;
+    display: inline-block !important;
+  }
+
+  /* Remove all backgrounds and decorations */
+  .print-content * {
+    background: transparent !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    border-radius: 0 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
   }
 }
