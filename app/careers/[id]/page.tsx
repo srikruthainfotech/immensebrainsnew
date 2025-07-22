@@ -42,7 +42,7 @@ const jobsData: JobData[] = [
     postedDate: "June 26th",
     openings: 3,
     plainTextPosting: {
-      position: "Software Developer - Oracle Fusion",
+      position: "Software Developer",
       payDetails: "Full-time job, 40 hours per week\nPay/Salary: $153,733.00 year",
       numberOfOpenings: 3,
       locationDetails: ["Immense Brains LLC", "6760 Corporate Dr, Suite 100", "Colorado Springs, CO 80919"],
@@ -66,7 +66,7 @@ const jobsData: JobData[] = [
     postedDate: "June 26th",
     openings: 3,
     plainTextPosting: {
-      position: "Software Developer - Data Engineering",
+      position: "Software Developer",
       payDetails: "Full-time job, 40 hours per week\nPay/Salary: $145,309.00 year",
       numberOfOpenings: 3,
       locationDetails: ["Immense Brains LLC", "6760 Corporate Dr, Suite 100", "Colorado Springs, CO 80919"],
@@ -184,10 +184,6 @@ export default function JobDetailsPage() {
           <p>
             <strong>Designation:</strong> CEO
           </p>
-          <p>
-            <strong>Signature:</strong>
-          </p>
-          <div className="signature-line"></div>
         </div>
       </div>
 
@@ -327,10 +323,6 @@ export default function JobDetailsPage() {
                     <p className="text-black">
                       <strong>Designation:</strong> CEO
                     </p>
-                    <p className="text-black">
-                      <strong>Signature:</strong>
-                    </p>
-                    <div className="border-b border-black w-48 h-8 mt-2"></div>
                   </div>
                 </div>
               </div>
