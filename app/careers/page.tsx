@@ -25,7 +25,7 @@ interface Job {
 const jobsData: Job[] = [
   {
     id: 1,
-    title: "Software Developer - Oracle Fusion",
+    title: "Software Developer",
     department: "Engineering",
     location: "Colorado Springs, CO",
     type: "Full-time",
@@ -38,7 +38,7 @@ const jobsData: Job[] = [
   },
   {
     id: 2,
-    title: "Software Developer - Data Engineering",
+    title: "Software Developer",
     department: "Engineering",
     location: "Colorado Springs, CO",
     type: "Full-time",

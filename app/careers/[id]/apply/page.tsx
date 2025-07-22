@@ -87,8 +87,8 @@ export default function JobApplicationPage() {
   })
 
   const jobTitles = {
-    1: "Software Developer - Oracle Fusion",
-    2: "Software Developer - Data Engineering",
+    1: "Software Developer",
+    2: "Software Developer",
   }
 
   const jobSkills = {

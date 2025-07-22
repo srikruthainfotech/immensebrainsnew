@@ -32,7 +32,7 @@ interface JobData {
 const jobsData: JobData[] = [
   {
     id: 1,
-    title: "Software Developer - Oracle Fusion",
+    title: "Software Developer",
     department: "Engineering",
     location: "Colorado Springs, CO",
     type: "Full-time",
@@ -56,7 +56,7 @@ const jobsData: JobData[] = [
   },
   {
     id: 2,
-    title: "Software Developer - Data Engineering",
+    title: "Software Developer",
     department: "Engineering",
     location: "Colorado Springs, CO",
     type: "Full-time",
