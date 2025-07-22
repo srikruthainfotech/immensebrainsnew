@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Printer, MapPin, Clock, DollarSign, Users } from "lucide-react"
+import { ArrowLeft, MapPin, Clock, DollarSign, Users } from "lucide-react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 
@@ -198,10 +198,6 @@ export default function JobDetailsPage() {
                 Back to Careers
               </Link>
             </Button>
-            <Button onClick={handlePrint} className="bg-slate-600 text-white hover:bg-slate-700">
-              <Printer className="h-4 w-4 mr-2" />
-              Print Job Notice (Ctrl+P)
-            </Button>
           </div>
 
           {/* Job Details Card */}
@@ -243,15 +239,6 @@ export default function JobDetailsPage() {
                   asChild
                 >
                   <Link href={`/careers/${job.id}/apply`}>Apply for This Position</Link>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={handlePrint}
-                  className="bg-transparent hover:bg-slate-50 border-slate-200 px-8 py-4 rounded-full transition-all duration-300"
-                >
-                  <Printer className="h-5 w-5 mr-2" />
-                  Print Job Notice
                 </Button>
               </div>
             </CardContent>

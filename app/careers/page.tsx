@@ -32,7 +32,7 @@ const jobsData: Job[] = [
     salary: "$153,733.00",
     description:
       "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Identify, analyze, and resolve issues within Oracle Fusion systems. Perform configuration tasks including workflows, roles, security profiles.",
-    postedDate: "June 26th",
+    postedDate: " 06/26/2025",
     openings: 3,
     gradient: "from-amber-400 to-yellow-500",
   },
@@ -45,7 +45,7 @@ const jobsData: Job[] = [
     salary: "$145,309.00",
     description:
       "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations. Design and implement ETL/ELT pipelines to move and transform data from various sources into target data systems.",
-    postedDate: "June 26th",
+    postedDate: " 06/26/2025",
     openings: 3,
     gradient: "from-emerald-400 to-teal-500",
   },
