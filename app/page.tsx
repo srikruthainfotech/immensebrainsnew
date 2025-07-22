@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Code, Smartphone, Cloud, Database, Shield, Zap, CheckCircle, Sparkles, Crown, Award } from "lucide-react"
+import { Code, Smartphone, Cloud, Database, Shield, Zap, Star, CheckCircle, Sparkles, Crown, Award } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
@@ -48,6 +48,33 @@ export default function HomePage() {
       description: "Revolutionary artificial intelligence solutions that redefine what's possible for your business.",
       gradient: "from-orange-400 via-amber-500 to-orange-600",
       accent: "border-orange-200",
+    },
+  ]
+
+  const testimonials = [
+    {
+      name: "Victoria Sterling",
+      role: "CEO, Sterling Enterprises",
+      content:
+        "Immense Brains delivered a solution that exceeded our highest expectations. Their attention to detail and commitment to excellence is unparalleled.",
+      rating: 5,
+      company: "Fortune 500",
+    },
+    {
+      name: "Alexander Chen",
+      role: "CTO, Quantum Dynamics",
+      content:
+        "Working with Immense Brains was transformative. They don't just build software; they craft digital masterpieces.",
+      rating: 5,
+      company: "Tech Unicorn",
+    },
+    {
+      name: "Isabella Rodriguez",
+      role: "Founder, Luxe Digital",
+      content:
+        "The level of sophistication and innovation they brought to our project was extraordinary. Truly world-class.",
+      rating: 5,
+      company: "Luxury Brand",
     },
   ]
 
@@ -183,6 +210,58 @@ export default function HomePage() {
                 </div>
                 <div className="text-slate-300 font-light text-lg tracking-wide">{stat.label}</div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-20 animate-fade-in-up">
+            <Badge variant="outline" className="mb-6 text-amber-600 border-amber-200 bg-amber-50 px-6 py-2">
+              <Star className="w-4 h-4 mr-2" />
+              Client Testimonials
+            </Badge>
+            <h2 className="text-5xl lg:text-6xl font-light text-slate-900 mb-8 tracking-tight">
+              What Our
+              <span className="block font-bold bg-gradient-to-r from-amber-600 via-yellow-600 to-amber-600 bg-clip-text text-transparent">
+                Distinguished Clients Say
+              </span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-4xl mx-auto font-light leading-relaxed">
+              Hear from industry leaders who have experienced the transformative power of our premium solutions.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <Card
+                key={index}
+                className="p-10 hover:shadow-2xl transition-all duration-500 border-0 bg-white hover:scale-105 animate-fade-in-up shadow-lg relative overflow-hidden"
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400"></div>
+
+                <div className="flex mb-6">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star key={i} className="h-6 w-6 text-amber-400 fill-current" />
+                  ))}
+                </div>
+
+                <p className="text-slate-700 mb-8 italic text-lg leading-relaxed font-light">"{testimonial.content}"</p>
+
+                <div className="flex items-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-amber-400 to-rose-400 rounded-full flex items-center justify-center text-white font-bold text-xl mr-4 shadow-lg">
+                    {testimonial.name.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="font-semibold text-slate-900 text-lg">{testimonial.name}</div>
+                    <div className="text-slate-600 font-light">{testimonial.role}</div>
+                    <div className="text-amber-600 text-sm font-medium">{testimonial.company}</div>
+                  </div>
+                </div>
+              </Card>
             ))}
           </div>
         </div>
