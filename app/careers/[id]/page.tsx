@@ -39,7 +39,7 @@ const jobsData: JobData[] = [
     salary: "$153,733.00",
     description:
       "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules.",
-    postedDate: "June 26th",
+    postedDate: " 06/26/2025",
     openings: 3,
     plainTextPosting: {
       position: "Software Developer",
@@ -49,7 +49,7 @@ const jobsData: JobData[] = [
       jobDuties:
         "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Identify, analyze, and resolve issues within Oracle Fusion, ensuring timely and accurate resolution to minimize business disruption. Perform configuration tasks, including defining workflows, managing roles and security profiles, and making changes to chart of accounts, business units, and other core setups. Assist in managing and validating data flows between Oracle Fusion and other connected systems. Develop and run custom financial reports based on specific business needs. Troubleshoot and support integrations between Oracle Fusion and third-party applications, ensuring smooth data exchanges and proper system functionality. Work under supervision. Travel and/or Relocation to various unanticipated client sites throughout USA is required.",
       education:
-        "Master’s  degree in Computer Science /IT/IS/ Engineering (Any)/ Business or related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Programmer or Developer or Engineer or closely related field. Employer also accepts Bachelor’s  degree in Computer Science /IT/IS/ Engineering (Any)/Business or related field plus five years of progressive work experience in related field.",
+        "Master's  degree in Computer Science /IT/IS/ Engineering (Any)/ Business or related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Programmer or Developer or Engineer or closely related field. Employer also accepts Bachelor's  degree in Computer Science /IT/IS/ Engineering (Any)/Business or related field plus five years of progressive work experience in related field.",
       experience:
         "Experience of Six (6) Months working with Oracle Fusion or Oracle EBS is required. Travel and/or relocation is required to unanticipated client sites within USA. International travel is not required. The frequency of travel is currently not known as it depends on the client and project requirement that cannot be currently anticipated. Employer provides Information technology services to various clients in USA and hence implementing projects will require such travel.",
     },
@@ -63,7 +63,7 @@ const jobsData: JobData[] = [
     salary: "$145,309.00",
     description:
       "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations.",
-    postedDate: "June 26th",
+    postedDate: " 06/26/2025",
     openings: 3,
     plainTextPosting: {
       position: "Software Developer",
@@ -73,7 +73,7 @@ const jobsData: JobData[] = [
       jobDuties:
         "Designing, building and managing scalable data systems and pipelines to ensure the data is accessible, reliable and usable across an organization. Designing and implementing ETL/ELT pipelines to move and transform data from various sources into target data systems. Build and automate workflows for batch and real-time data ingestion and processing. Design and manage scalable, cost-efficient storage solutions for both structured and unstructured data. Implement strategies for data backup, replication, and disaster recovery. Process, cleanse, and transform raw data into meaningful formats for analysis. Orchestrate complex workflows by combining different data services to ensure data pipelines run efficiently. Responsible for secure data in transit and at rest, ensuring encryption and proper access control. Work under supervision. Travel and/or relocation to unanticipated client sites throughout USA is required.",
       education:
-        "Master's degree in Computer Science/IT/IS/Engineering (Any) or closely related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Engineer or Programmer or Developer or Data Engineer or related field.",
+        "Master's  degree in Computer Science/ IT/ IS/ Engineering (Any) or closely related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Engineer or Programmer or Developer or Data Engineer or related field.",
       experience:
         "Experience of Six (6) months working with ETL or Informatica is required. Travel and/or relocation is required to unanticipated client sites within USA. International travel is not required. The frequency of travel is currently not known as it depends on the client and project requirement that cannot be currently anticipated. Employer provides Information technology services to various clients in USA and hence implementing projects will require such travel.",
     },
