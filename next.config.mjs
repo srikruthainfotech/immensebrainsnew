@@ -3,7 +3,7 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
-    domains: ['localhost', 'immensebrains.azurewebsites.net'],
+    domains: ['localhost'],
     formats: ['image/webp', 'image/avif'],
   },
   compress: true,
@@ -45,6 +45,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  output: 'standalone'
 }
 
 export default nextConfig
