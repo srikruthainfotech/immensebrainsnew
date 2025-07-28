@@ -14,6 +14,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Immense Brains - IT Consulting and Development Services",
   description: "Crafting extraordinary software solutions with unparalleled attention to detail and sophistication.",
+  keywords: "software development, IT consulting, Oracle Fusion, data engineering, enterprise solutions",
+  authors: [{ name: "Immense Brains LLC" }],
+  viewport: "width=device-width, initial-scale=1",
     generator: 'v0.dev'
 }
 
