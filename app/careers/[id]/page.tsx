@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, MapPin, Clock, DollarSign, Users } from "lucide-react"
+import { ArrowLeft, MapPin, Clock, DollarSign, Users, FileText } from "lucide-react"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 
@@ -80,6 +80,66 @@ const jobsData: JobData[] = [
   },
 ]
 
+const handlePrint = (job: JobData) => {
+  // Create a new window for printing
+  const printWindow = window.open("", "_blank")
+  if (printWindow) {
+    printWindow.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>Job Posting - ${job.title}</title>
+          <style>
+            @media print {
+              body { font-family: 'Times New Roman', serif; margin: 1in; }
+              .job-posting-header { text-align: center; font-weight: bold; font-size: 16pt; margin-bottom: 24pt; text-decoration: underline; }
+              .posting-date { text-align: right; margin-bottom: 24pt; font-weight: bold; }
+              .job-section { margin-bottom: 20pt; display: flex; page-break-inside: avoid; }
+              .section-label { font-weight: bold; width: 140pt; margin-right: 20pt; text-transform: uppercase; }
+              .section-content { flex: 1; text-align: justify; }
+              .signature-section { margin-top: 48pt; border-top: 1pt solid black; padding-top: 24pt; }
+            }
+          </style>
+        </head>
+        <body>
+          <div class="job-posting-header">JOB POSTING NOTICE</div>
+          <div class="posting-date">Posting Date: ${job.postedDate}</div>
+          <div class="job-section">
+            <div class="section-label">POSITION:</div>
+            <div class="section-content">${job.plainTextPosting.position}<br/>${job.plainTextPosting.payDetails.replace(/\n/g, "<br/>")}</div>
+          </div>
+          <div class="job-section">
+            <div class="section-label">NUMBER OF OPENINGS:</div>
+            <div class="section-content">${job.plainTextPosting.numberOfOpenings}</div>
+          </div>
+          <div class="job-section">
+            <div class="section-label">LOCATION:</div>
+            <div class="section-content">${job.plainTextPosting.locationDetails.join("<br/>")}</div>
+          </div>
+          <div class="job-section">
+            <div class="section-label">JOB DUTIES:</div>
+            <div class="section-content">${job.plainTextPosting.jobDuties}</div>
+          </div>
+          <div class="job-section">
+            <div class="section-label">EDUCATION:</div>
+            <div class="section-content">${job.plainTextPosting.education}</div>
+          </div>
+          <div class="job-section">
+            <div class="section-label">EXPERIENCE:</div>
+            <div class="section-content">${job.plainTextPosting.experience}</div>
+          </div>
+          <div class="signature-section">
+            <p><strong>Posted By:</strong> (Sai Nirukurti)</p>
+            <p><strong>Designation:</strong> CEO</p>
+          </div>
+        </body>
+      </html>
+    `)
+    printWindow.document.close()
+    printWindow.print()
+  }
+}
+
 export default function JobDetailsPage() {
   const params = useParams()
   const [job, setJob] = useState<JobData | null>(null)
@@ -90,22 +150,20 @@ export default function JobDetailsPage() {
     setJob(foundJob || null)
   }, [params.id])
 
-  const handlePrint = () => {
-    window.print()
-  }
-
   // Add keyboard shortcut for Ctrl+P / Cmd+P
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key === "p") {
         event.preventDefault()
-        handlePrint()
+        if (job) {
+          handlePrint(job)
+        }
       }
     }
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [])
+  }, [job])
 
   if (!job) {
     return (
@@ -239,6 +297,15 @@ export default function JobDetailsPage() {
                   asChild
                 >
                   <Link href={`/careers/${job.id}/apply`}>Apply for This Position</Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => handlePrint(job)}
+                  className="flex-1 bg-transparent hover:bg-slate-50 border-slate-200 hover:border-slate-300 py-4 px-8 rounded-full transition-all duration-300"
+                >
+                  <FileText className="h-4 w-4 mr-2" />
+                  Print Job Posting
                 </Button>
               </div>
             </CardContent>

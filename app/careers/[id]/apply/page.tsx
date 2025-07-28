@@ -127,9 +127,45 @@ export default function JobApplicationPage() {
     setIsSubmitted(true)
   }
 
+  const validateStep = (step: number): boolean => {
+    switch (step) {
+      case 1:
+        return (
+          formData.firstName &&
+          formData.lastName &&
+          formData.email &&
+          formData.phone &&
+          formData.address &&
+          formData.city &&
+          formData.state &&
+          formData.zipCode
+        )
+      case 2:
+        return formData.highestDegree && formData.fieldOfStudy && formData.university && formData.graduationYear
+      case 3:
+        return formData.yearsExperience && formData.relevantExperience
+      case 4:
+        return formData.technicalSkills.length > 0
+      case 5:
+        return (
+          formData.availableStartDate &&
+          formData.willingToRelocate &&
+          formData.willingToTravel &&
+          formData.legalToWork &&
+          formData.requireSponsorship
+        )
+      default:
+        return true
+    }
+  }
+
   const nextStep = () => {
-    if (currentStep < totalSteps) {
-      setCurrentStep(currentStep + 1)
+    if (validateStep(currentStep)) {
+      if (currentStep < totalSteps) {
+        setCurrentStep(currentStep + 1)
+      }
+    } else {
+      alert("Please fill in all required fields before proceeding.")
     }
   }
 
