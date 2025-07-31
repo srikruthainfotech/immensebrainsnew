@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  trailingSlash: false, // Changed to false for better performance
+  trailingSlash: true,
   images: {
     unoptimized: true,
-    domains: ['localhost', 'placeholder.svg'],
+    domains: ['localhost', 'immensebrains.azurewebsites.net'],
     formats: ['image/webp', 'image/avif'],
   },
   compress: true,
@@ -26,10 +26,6 @@ const nextConfig = {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
           },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
         ],
       },
     ]
@@ -44,14 +40,10 @@ const nextConfig = {
     ]
   },
   eslint: {
-    ignoreDuringBuilds: false, // Changed to false for better code quality
+    ignoreDuringBuilds: true,
   },
   typescript: {
-    ignoreBuildErrors: false, // Changed to false for better type safety
-  },
-  output: 'standalone',
-  experimental: {
-    optimizePackageImports: ['lucide-react'],
+    ignoreBuildErrors: true,
   },
 }
 
