@@ -1,69 +1,63 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Checkbox } from "@/components/ui/checkbox"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, CheckCircle, AlertCircle } from "lucide-react"
+import { ArrowLeft, ArrowRight, CheckCircle, User, GraduationCap, Briefcase, FileText, Send } from "lucide-react"
 import Link from "next/link"
 
-const jobTitles = {
-  1: "Senior Software Engineer",
-  2: "Product Manager",
-  3: "Technology Lead",
+interface FormData {
+  // Personal Information
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+  address: string
+  city: string
+  state: string
+  zipCode: string
+
+  // Education
+  highestDegree: string
+  fieldOfStudy: string
+  university: string
+  graduationYear: string
+  gpa: string
+
+  // Experience
+  currentPosition: string
+  currentCompany: string
+  yearsExperience: string
+  relevantExperience: string
+
+  // Skills (job-specific)
+  technicalSkills: string[]
+  certifications: string
+
+  // Additional Information
+  availableStartDate: string
+  salaryExpectation: string
+  willingToRelocate: string
+  willingToTravel: string
+  legalToWork: string
+  requireSponsorship: string
+  additionalInfo: string
 }
 
-const jobSkills = {
-  1: ["React", "Node.js", "TypeScript", "AWS", "JavaScript", "HTML/CSS", "Git", "REST APIs"],
-  2: [
-    "Product Strategy",
-    "Analytics",
-    "Agile",
-    "User Research",
-    "Roadmapping",
-    "Stakeholder Management",
-    "Data Analysis",
-    "Market Research",
-  ],
-  3: [
-    "Java",
-    "Spring",
-    "Angular",
-    "AWS",
-    "Jenkins",
-    "Agile Scrum",
-    "HTML5",
-    "CSS",
-    "TypeScript",
-    "Spring Data JPA",
-    "Design Patterns",
-    "Testing Frameworks",
-  ],
-}
-
-interface ApplicationPageProps {
-  params: {
-    id: string
-  }
-}
-
-export default function ApplicationPage({ params }: ApplicationPageProps) {
-  const router = useRouter()
-  const jobId = Number.parseInt(params.id)
-  const jobTitle = jobTitles[jobId as keyof typeof jobTitles]
-  const skills = jobSkills[jobId as keyof typeof jobSkills] || []
-
+export default function JobApplicationPage() {
+  const params = useParams()
+  const jobId = Number.parseInt(params.id as string)
   const [currentStep, setCurrentStep] = useState(1)
-  const [formData, setFormData] = useState({
-    // Personal Information
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
     email: "",
@@ -72,275 +66,374 @@ export default function ApplicationPage({ params }: ApplicationPageProps) {
     city: "",
     state: "",
     zipCode: "",
-
-    // Professional Information
-    currentTitle: "",
-    company: "",
-    experience: "",
-    education: "",
-    degree: "",
+    highestDegree: "",
+    fieldOfStudy: "",
     university: "",
     graduationYear: "",
-
-    // Skills and Availability
-    selectedSkills: [] as string[],
-    portfolioUrl: "",
-    linkedinUrl: "",
-    githubUrl: "",
-    availableStart: "",
+    gpa: "",
+    currentPosition: "",
+    currentCompany: "",
+    yearsExperience: "",
+    relevantExperience: "",
+    technicalSkills: [],
+    certifications: "",
+    availableStartDate: "",
     salaryExpectation: "",
-    workAuthorization: "",
     willingToRelocate: "",
-
-    // Additional Information
-    coverLetter: "",
+    willingToTravel: "",
+    legalToWork: "",
+    requireSponsorship: "",
     additionalInfo: "",
-    referralSource: "",
-
-    // Agreements
-    agreeTerms: false,
-    agreeBackground: false,
   })
 
-  const totalSteps = 4
+  const jobTitles = {
+    1: "Software Developer",
+    2: "Software Developer",
+    3: "Technology Lead",
+  }
+
+  const jobSkills = {
+    1: [
+      "Oracle Fusion",
+      "Oracle EBS",
+      "SQL",
+      "PL/SQL",
+      "Workflows",
+      "Security Profiles",
+      "Financial Reports",
+      "System Integration",
+    ],
+    2: ["ETL/ELT", "Informatica", "Data Pipelines", "SQL", "Python", "Data Warehousing", "Big Data", "Cloud Platforms"],
+    3: [
+      "Java",
+      "Spring Framework",
+      "Angular",
+      "HTML5",
+      "CSS",
+      "TypeScript",
+      "AWS",
+      "Jenkins",
+      "Agile Scrum",
+      "Spring Data JPA",
+      "Design Patterns",
+      "Testing Frameworks",
+    ],
+  }
+
+  const totalSteps = 5
   const progress = (currentStep / totalSteps) * 100
 
-  const handleInputChange = (field: string, value: any) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
+  const handleInputChange = (field: keyof FormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }))
   }
 
   const handleSkillToggle = (skill: string) => {
     setFormData((prev) => ({
       ...prev,
-      selectedSkills: prev.selectedSkills.includes(skill)
-        ? prev.selectedSkills.filter((s) => s !== skill)
-        : [...prev.selectedSkills, skill],
+      technicalSkills: prev.technicalSkills.includes(skill)
+        ? prev.technicalSkills.filter((s) => s !== skill)
+        : [...prev.technicalSkills, skill],
     }))
   }
 
-  const handleNext = () => {
+  const handleSubmit = () => {
+    // Here you would typically send the data to your backend
+    console.log("Application submitted:", formData)
+    setIsSubmitted(true)
+  }
+
+  const nextStep = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1)
     }
   }
 
-  const handlePrevious = () => {
+  const prevStep = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
     }
   }
 
-  const handleSubmit = () => {
-    // Here you would typically submit the form data to your backend
-    console.log("Submitting application:", formData)
-    alert("Application submitted successfully! We will review your application and get back to you soon.")
-    router.push("/careers")
-  }
-
-  const isStepValid = () => {
-    switch (currentStep) {
-      case 1:
-        return formData.firstName && formData.lastName && formData.email && formData.phone
-      case 2:
-        return formData.experience && formData.education
-      case 3:
-        return formData.selectedSkills.length > 0
-      case 4:
-        return formData.agreeTerms && formData.agreeBackground
-      default:
-        return false
-    }
-  }
-
-  if (!jobTitle) {
+  if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardContent className="pt-6 text-center">
-            <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-            <h2 className="text-xl font-semibold mb-2">Job Not Found</h2>
-            <p className="text-slate-600 mb-4">The job position you're looking for doesn't exist.</p>
-            <Button asChild>
-              <Link href="/careers">Back to Careers</Link>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 pt-20 flex items-center justify-center">
+        <Card className="max-w-2xl mx-4 text-center p-12">
+          <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-8">
+            <CheckCircle className="h-10 w-10 text-white" />
+          </div>
+          <h1 className="text-4xl font-light text-slate-900 mb-6">Application Submitted!</h1>
+          <p className="text-xl text-slate-600 font-light mb-8 leading-relaxed">
+            Thank you for your interest in the <strong>{jobTitles[jobId as keyof typeof jobTitles]}</strong> position.
+            We have received your application and will review it carefully.
+          </p>
+          <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-2xl p-6 mb-8">
+            <h3 className="text-lg font-semibold text-amber-800 mb-2">What's Next?</h3>
+            <ul className="text-amber-700 text-left space-y-2">
+              <li>• Our HR team will review your application within 3-5 business days</li>
+              <li>• If selected, you'll receive an email to schedule an initial interview</li>
+              <li>• We'll keep you updated throughout the entire process</li>
+            </ul>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              asChild
+              size="lg"
+              className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
+            >
+              <Link href="/careers">View Other Positions</Link>
             </Button>
-          </CardContent>
+            <Button variant="outline" size="lg" asChild className="px-8 py-4 rounded-full bg-transparent">
+              <Link href="/">Back to Home</Link>
+            </Button>
+          </div>
         </Card>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-4 mb-4">
-            <Button variant="ghost" size="sm" asChild>
-              <Link href={`/careers/${jobId}`}>
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Job Details
-              </Link>
-            </Button>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 pt-20">
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        {/* Header */}
+        <div className="mb-8">
+          <Button variant="ghost" asChild className="mb-6">
+            <Link href={`/careers/${jobId}`}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Job Details
+            </Link>
+          </Button>
+
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-light text-slate-900 mb-4">
+              Apply for{" "}
+              <span className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 bg-clip-text text-transparent">
+                {jobTitles[jobId as keyof typeof jobTitles]}
+              </span>
+            </h1>
+            <p className="text-xl text-slate-600 font-light">
+              Step {currentStep} of {totalSteps}
+            </p>
           </div>
-          <h1 className="text-3xl font-bold text-slate-900">Apply for {jobTitle}</h1>
-          <p className="text-slate-600 mt-2">Complete the application form below to apply for this position.</p>
 
           {/* Progress Bar */}
-          <div className="mt-6">
-            <div className="flex justify-between text-sm text-slate-600 mb-2">
-              <span>
-                Step {currentStep} of {totalSteps}
-              </span>
-              <span>{Math.round(progress)}% Complete</span>
-            </div>
+          <div className="mb-8">
             <Progress value={progress} className="h-2" />
           </div>
         </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-3xl mx-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                {currentStep === 1 && "Personal Information"}
-                {currentStep === 2 && "Professional Background"}
-                {currentStep === 3 && "Skills & Availability"}
-                {currentStep === 4 && "Final Details"}
-              </CardTitle>
-              <CardDescription>
-                {currentStep === 1 && "Please provide your basic contact information."}
-                {currentStep === 2 && "Tell us about your professional experience and education."}
-                {currentStep === 3 && "Select your skills and provide additional professional links."}
-                {currentStep === 4 && "Review your information and complete your application."}
-              </CardDescription>
-            </CardHeader>
-
-            <CardContent className="space-y-6">
-              {/* Step 1: Personal Information */}
-              {currentStep === 1 && (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="firstName">First Name *</Label>
-                      <Input
-                        id="firstName"
-                        value={formData.firstName}
-                        onChange={(e) => handleInputChange("firstName", e.target.value)}
-                        placeholder="Enter your first name"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName">Last Name *</Label>
-                      <Input
-                        id="lastName"
-                        value={formData.lastName}
-                        onChange={(e) => handleInputChange("lastName", e.target.value)}
-                        placeholder="Enter your last name"
-                      />
-                    </div>
+        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+          <CardContent className="p-8">
+            {/* Step 1: Personal Information */}
+            {currentStep === 1 && (
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center">
+                    <User className="h-5 w-5 text-white" />
                   </div>
+                  <h2 className="text-2xl font-light">Personal Information</h2>
+                </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="email">Email Address *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => handleInputChange("email", e.target.value)}
-                        placeholder="your.email@example.com"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="phone">Phone Number *</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => handleInputChange("phone", e.target.value)}
-                        placeholder="(555) 123-4567"
-                      />
-                    </div>
-                  </div>
-
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="address">Address</Label>
+                    <Label htmlFor="firstName">First Name *</Label>
+                    <Input
+                      id="firstName"
+                      value={formData.firstName}
+                      onChange={(e) => handleInputChange("firstName", e.target.value)}
+                      className="mt-2"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="lastName">Last Name *</Label>
+                    <Input
+                      id="lastName"
+                      value={formData.lastName}
+                      onChange={(e) => handleInputChange("lastName", e.target.value)}
+                      className="mt-2"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="email">Email Address *</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) => handleInputChange("email", e.target.value)}
+                      className="mt-2"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="phone">Phone Number *</Label>
+                    <Input
+                      id="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => handleInputChange("phone", e.target.value)}
+                      className="mt-2"
+                      required
+                    />
+                  </div>
+                  <div className="md:col-span-2">
+                    <Label htmlFor="address">Street Address *</Label>
                     <Input
                       id="address"
                       value={formData.address}
                       onChange={(e) => handleInputChange("address", e.target.value)}
-                      placeholder="Street address"
+                      className="mt-2"
+                      required
                     />
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <Label htmlFor="city">City</Label>
-                      <Input
-                        id="city"
-                        value={formData.city}
-                        onChange={(e) => handleInputChange("city", e.target.value)}
-                        placeholder="City"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="state">State</Label>
-                      <Input
-                        id="state"
-                        value={formData.state}
-                        onChange={(e) => handleInputChange("state", e.target.value)}
-                        placeholder="State"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="zipCode">ZIP Code</Label>
-                      <Input
-                        id="zipCode"
-                        value={formData.zipCode}
-                        onChange={(e) => handleInputChange("zipCode", e.target.value)}
-                        placeholder="12345"
-                      />
-                    </div>
+                  <div>
+                    <Label htmlFor="city">City *</Label>
+                    <Input
+                      id="city"
+                      value={formData.city}
+                      onChange={(e) => handleInputChange("city", e.target.value)}
+                      className="mt-2"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="state">State *</Label>
+                    <Input
+                      id="state"
+                      value={formData.state}
+                      onChange={(e) => handleInputChange("state", e.target.value)}
+                      className="mt-2"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="zipCode">ZIP Code *</Label>
+                    <Input
+                      id="zipCode"
+                      value={formData.zipCode}
+                      onChange={(e) => handleInputChange("zipCode", e.target.value)}
+                      className="mt-2"
+                      required
+                    />
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
-              {/* Step 2: Professional Background */}
-              {currentStep === 2 && (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="currentTitle">Current Job Title</Label>
-                      <Input
-                        id="currentTitle"
-                        value={formData.currentTitle}
-                        onChange={(e) => handleInputChange("currentTitle", e.target.value)}
-                        placeholder="e.g., Software Engineer"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="company">Current Company</Label>
-                      <Input
-                        id="company"
-                        value={formData.company}
-                        onChange={(e) => handleInputChange("company", e.target.value)}
-                        placeholder="Company name"
-                      />
-                    </div>
+            {/* Step 2: Education Background */}
+            {currentStep === 2 && (
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-2xl flex items-center justify-center">
+                    <GraduationCap className="h-5 w-5 text-white" />
                   </div>
+                  <h2 className="text-2xl font-light">Education Background</h2>
+                </div>
 
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <Label htmlFor="experience">Years of Experience *</Label>
+                    <Label htmlFor="highestDegree">Highest Degree *</Label>
                     <Select
-                      value={formData.experience}
-                      onValueChange={(value) => handleInputChange("experience", value)}
+                      value={formData.highestDegree}
+                      onValueChange={(value) => handleInputChange("highestDegree", value)}
                     >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select your experience level" />
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Select degree" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="bachelor">Bachelor's Degree</SelectItem>
+                        <SelectItem value="master">Master's Degree</SelectItem>
+                        <SelectItem value="phd">PhD</SelectItem>
+                        <SelectItem value="associate">Associate Degree</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="fieldOfStudy">Field of Study *</Label>
+                    <Input
+                      id="fieldOfStudy"
+                      value={formData.fieldOfStudy}
+                      onChange={(e) => handleInputChange("fieldOfStudy", e.target.value)}
+                      className="mt-2"
+                      placeholder="e.g., Computer Science, Engineering"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="university">University/Institution *</Label>
+                    <Input
+                      id="university"
+                      value={formData.university}
+                      onChange={(e) => handleInputChange("university", e.target.value)}
+                      className="mt-2"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="graduationYear">Graduation Year *</Label>
+                    <Input
+                      id="graduationYear"
+                      type="number"
+                      value={formData.graduationYear}
+                      onChange={(e) => handleInputChange("graduationYear", e.target.value)}
+                      className="mt-2"
+                      min="1980"
+                      max="2030"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="gpa">GPA (Optional)</Label>
+                    <Input
+                      id="gpa"
+                      value={formData.gpa}
+                      onChange={(e) => handleInputChange("gpa", e.target.value)}
+                      className="mt-2"
+                      placeholder="e.g., 3.5"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 3: Work Experience */}
+            {currentStep === 3 && (
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                    <Briefcase className="h-5 w-5 text-white" />
+                  </div>
+                  <h2 className="text-2xl font-light">Work Experience</h2>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="currentPosition">Current/Most Recent Position</Label>
+                    <Input
+                      id="currentPosition"
+                      value={formData.currentPosition}
+                      onChange={(e) => handleInputChange("currentPosition", e.target.value)}
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="currentCompany">Current/Most Recent Company</Label>
+                    <Input
+                      id="currentCompany"
+                      value={formData.currentCompany}
+                      onChange={(e) => handleInputChange("currentCompany", e.target.value)}
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="yearsExperience">Total Years of Experience *</Label>
+                    <Select
+                      value={formData.yearsExperience}
+                      onValueChange={(value) => handleInputChange("yearsExperience", value)}
+                    >
+                      <SelectTrigger className="mt-2">
+                        <SelectValue placeholder="Select experience" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="0-1">0-1 years</SelectItem>
@@ -351,129 +444,87 @@ export default function ApplicationPage({ params }: ApplicationPageProps) {
                       </SelectContent>
                     </Select>
                   </div>
-
-                  <div>
-                    <Label htmlFor="education">Education Level *</Label>
-                    <Select value={formData.education} onValueChange={(value) => handleInputChange("education", value)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select your education level" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="high-school">High School</SelectItem>
-                        <SelectItem value="associate">Associate Degree</SelectItem>
-                        <SelectItem value="bachelor">Bachelor's Degree</SelectItem>
-                        <SelectItem value="master">Master's Degree</SelectItem>
-                        <SelectItem value="phd">PhD</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="degree">Degree/Field of Study</Label>
-                      <Input
-                        id="degree"
-                        value={formData.degree}
-                        onChange={(e) => handleInputChange("degree", e.target.value)}
-                        placeholder="e.g., Computer Science"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="university">University/Institution</Label>
-                      <Input
-                        id="university"
-                        value={formData.university}
-                        onChange={(e) => handleInputChange("university", e.target.value)}
-                        placeholder="University name"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="graduationYear">Graduation Year</Label>
-                    <Input
-                      id="graduationYear"
-                      value={formData.graduationYear}
-                      onChange={(e) => handleInputChange("graduationYear", e.target.value)}
-                      placeholder="e.g., 2020"
+                  <div className="md:col-span-2">
+                    <Label htmlFor="relevantExperience">Relevant Experience Description *</Label>
+                    <Textarea
+                      id="relevantExperience"
+                      value={formData.relevantExperience}
+                      onChange={(e) => handleInputChange("relevantExperience", e.target.value)}
+                      className="mt-2"
+                      rows={4}
+                      placeholder="Describe your relevant work experience, projects, and achievements..."
+                      required
                     />
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
-              {/* Step 3: Skills & Availability */}
-              {currentStep === 3 && (
+            {/* Step 4: Skills & Qualifications */}
+            {currentStep === 4 && (
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-rose-500 to-pink-600 rounded-2xl flex items-center justify-center">
+                    <FileText className="h-5 w-5 text-white" />
+                  </div>
+                  <h2 className="text-2xl font-light">Skills & Qualifications</h2>
+                </div>
+
                 <div className="space-y-6">
                   <div>
-                    <Label className="text-base font-semibold">Required Skills *</Label>
-                    <p className="text-sm text-slate-600 mb-3">Select the skills you have experience with:</p>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {skills.map((skill) => (
+                    <Label className="text-base font-medium">Technical Skills (Select all that apply) *</Label>
+                    <div className="grid md:grid-cols-2 gap-3 mt-4">
+                      {jobSkills[jobId as keyof typeof jobSkills]?.map((skill) => (
                         <div key={skill} className="flex items-center space-x-2">
                           <Checkbox
                             id={skill}
-                            checked={formData.selectedSkills.includes(skill)}
+                            checked={formData.technicalSkills.includes(skill)}
                             onCheckedChange={() => handleSkillToggle(skill)}
                           />
-                          <Label htmlFor={skill} className="text-sm font-normal cursor-pointer">
+                          <Label htmlFor={skill} className="font-normal">
                             {skill}
                           </Label>
                         </div>
                       ))}
                     </div>
-                    {formData.selectedSkills.length > 0 && (
-                      <div className="mt-3">
-                        <p className="text-sm text-slate-600 mb-2">Selected skills:</p>
-                        <div className="flex flex-wrap gap-2">
-                          {formData.selectedSkills.map((skill) => (
-                            <Badge key={skill} variant="secondary">
-                              {skill}
-                            </Badge>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="portfolioUrl">Portfolio URL</Label>
-                      <Input
-                        id="portfolioUrl"
-                        value={formData.portfolioUrl}
-                        onChange={(e) => handleInputChange("portfolioUrl", e.target.value)}
-                        placeholder="https://yourportfolio.com"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="linkedinUrl">LinkedIn Profile</Label>
-                      <Input
-                        id="linkedinUrl"
-                        value={formData.linkedinUrl}
-                        onChange={(e) => handleInputChange("linkedinUrl", e.target.value)}
-                        placeholder="https://linkedin.com/in/yourprofile"
-                      />
-                    </div>
                   </div>
 
                   <div>
-                    <Label htmlFor="githubUrl">GitHub Profile</Label>
-                    <Input
-                      id="githubUrl"
-                      value={formData.githubUrl}
-                      onChange={(e) => handleInputChange("githubUrl", e.target.value)}
-                      placeholder="https://github.com/yourusername"
+                    <Label htmlFor="certifications">Certifications (Optional)</Label>
+                    <Textarea
+                      id="certifications"
+                      value={formData.certifications}
+                      onChange={(e) => handleInputChange("certifications", e.target.value)}
+                      className="mt-2"
+                      rows={3}
+                      placeholder="List any relevant certifications, licenses, or professional credentials..."
                     />
                   </div>
+                </div>
+              </div>
+            )}
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Step 5: Additional Information */}
+            {currentStep === 5 && (
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-yellow-600 rounded-2xl flex items-center justify-center">
+                    <Send className="h-5 w-5 text-white" />
+                  </div>
+                  <h2 className="text-2xl font-light">Additional Information</h2>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                      <Label htmlFor="availableStart">Available Start Date</Label>
+                      <Label htmlFor="availableStartDate">Available Start Date *</Label>
                       <Input
-                        id="availableStart"
+                        id="availableStartDate"
                         type="date"
-                        value={formData.availableStart}
-                        onChange={(e) => handleInputChange("availableStart", e.target.value)}
+                        value={formData.availableStartDate}
+                        onChange={(e) => handleInputChange("availableStartDate", e.target.value)}
+                        className="mt-2"
+                        required
                       />
                     </div>
                     <div>
@@ -482,155 +533,132 @@ export default function ApplicationPage({ params }: ApplicationPageProps) {
                         id="salaryExpectation"
                         value={formData.salaryExpectation}
                         onChange={(e) => handleInputChange("salaryExpectation", e.target.value)}
-                        placeholder="e.g., $120,000"
+                        className="mt-2"
+                        placeholder="e.g., $150,000"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <Label className="text-base font-semibold">Work Authorization</Label>
+                    <Label className="text-base font-medium">
+                      Are you willing to relocate to client sites within the USA? *
+                    </Label>
                     <RadioGroup
-                      value={formData.workAuthorization}
-                      onValueChange={(value) => handleInputChange("workAuthorization", value)}
-                      className="mt-2"
+                      value={formData.willingToRelocate}
+                      onValueChange={(value) => handleInputChange("willingToRelocate", value)}
+                      className="mt-3"
                     >
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="citizen" id="citizen" />
-                        <Label htmlFor="citizen">US Citizen</Label>
+                        <RadioGroupItem value="yes" id="relocate-yes" />
+                        <Label htmlFor="relocate-yes">Yes</Label>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="permanent-resident" id="permanent-resident" />
-                        <Label htmlFor="permanent-resident">Permanent Resident</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="visa" id="visa" />
-                        <Label htmlFor="visa">Work Visa</Label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="other" id="other" />
-                        <Label htmlFor="other">Other</Label>
+                        <RadioGroupItem value="no" id="relocate-no" />
+                        <Label htmlFor="relocate-no">No</Label>
                       </div>
                     </RadioGroup>
                   </div>
 
-                  {jobId === 3 && (
-                    <div>
-                      <Label className="text-base font-semibold">Willing to Travel/Relocate</Label>
-                      <p className="text-sm text-slate-600 mb-2">
-                        This position requires travel to various client sites throughout the USA.
-                      </p>
-                      <RadioGroup
-                        value={formData.willingToRelocate}
-                        onValueChange={(value) => handleInputChange("willingToRelocate", value)}
-                        className="mt-2"
-                      >
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="yes" id="relocate-yes" />
-                          <Label htmlFor="relocate-yes">Yes, I am willing to travel/relocate</Label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="no" id="relocate-no" />
-                          <Label htmlFor="relocate-no">No, I prefer to work locally</Label>
-                        </div>
-                      </RadioGroup>
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* Step 4: Final Details */}
-              {currentStep === 4 && (
-                <div className="space-y-6">
                   <div>
-                    <Label htmlFor="coverLetter">Cover Letter</Label>
-                    <Textarea
-                      id="coverLetter"
-                      value={formData.coverLetter}
-                      onChange={(e) => handleInputChange("coverLetter", e.target.value)}
-                      placeholder="Tell us why you're interested in this position and what makes you a great fit..."
-                      rows={6}
-                    />
+                    <Label className="text-base font-medium">Are you willing to travel for work? *</Label>
+                    <RadioGroup
+                      value={formData.willingToTravel}
+                      onValueChange={(value) => handleInputChange("willingToTravel", value)}
+                      className="mt-3"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="yes" id="travel-yes" />
+                        <Label htmlFor="travel-yes">Yes</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="no" id="travel-no" />
+                        <Label htmlFor="travel-no">No</Label>
+                      </div>
+                    </RadioGroup>
                   </div>
 
                   <div>
-                    <Label htmlFor="additionalInfo">Additional Information</Label>
+                    <Label className="text-base font-medium">
+                      Are you legally authorized to work in the United States? *
+                    </Label>
+                    <RadioGroup
+                      value={formData.legalToWork}
+                      onValueChange={(value) => handleInputChange("legalToWork", value)}
+                      className="mt-3"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="yes" id="legal-yes" />
+                        <Label htmlFor="legal-yes">Yes</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="no" id="legal-no" />
+                        <Label htmlFor="legal-no">No</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  <div>
+                    <Label className="text-base font-medium">
+                      Do you require sponsorship for employment visa status? *
+                    </Label>
+                    <RadioGroup
+                      value={formData.requireSponsorship}
+                      onValueChange={(value) => handleInputChange("requireSponsorship", value)}
+                      className="mt-3"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="yes" id="sponsor-yes" />
+                        <Label htmlFor="sponsor-yes">Yes</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="no" id="sponsor-no" />
+                        <Label htmlFor="sponsor-no">No</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="additionalInfo">Additional Information (Optional)</Label>
                     <Textarea
                       id="additionalInfo"
                       value={formData.additionalInfo}
                       onChange={(e) => handleInputChange("additionalInfo", e.target.value)}
-                      placeholder="Any additional information you'd like to share..."
+                      className="mt-2"
                       rows={4}
+                      placeholder="Any additional information you'd like to share..."
                     />
                   </div>
-
-                  <div>
-                    <Label htmlFor="referralSource">How did you hear about us?</Label>
-                    <Select
-                      value={formData.referralSource}
-                      onValueChange={(value) => handleInputChange("referralSource", value)}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select an option" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="website">Company Website</SelectItem>
-                        <SelectItem value="linkedin">LinkedIn</SelectItem>
-                        <SelectItem value="job-board">Job Board</SelectItem>
-                        <SelectItem value="referral">Employee Referral</SelectItem>
-                        <SelectItem value="social-media">Social Media</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-4 pt-4 border-t">
-                    <div className="flex items-start space-x-3">
-                      <Checkbox
-                        id="agreeTerms"
-                        checked={formData.agreeTerms}
-                        onCheckedChange={(checked) => handleInputChange("agreeTerms", checked)}
-                      />
-                      <Label htmlFor="agreeTerms" className="text-sm leading-relaxed">
-                        I agree to the terms and conditions and privacy policy. I understand that my information will be
-                        used to process my application and communicate regarding this position.
-                      </Label>
-                    </div>
-
-                    <div className="flex items-start space-x-3">
-                      <Checkbox
-                        id="agreeBackground"
-                        checked={formData.agreeBackground}
-                        onCheckedChange={(checked) => handleInputChange("agreeBackground", checked)}
-                      />
-                      <Label htmlFor="agreeBackground" className="text-sm leading-relaxed">
-                        I consent to background checks and verification of the information provided in this application
-                        as part of the hiring process.
-                      </Label>
-                    </div>
-                  </div>
                 </div>
-              )}
-
-              {/* Navigation Buttons */}
-              <div className="flex justify-between pt-6 border-t">
-                <Button variant="outline" onClick={handlePrevious} disabled={currentStep === 1}>
-                  Previous
-                </Button>
-
-                {currentStep < totalSteps ? (
-                  <Button onClick={handleNext} disabled={!isStepValid()}>
-                    Next
-                  </Button>
-                ) : (
-                  <Button onClick={handleSubmit} disabled={!isStepValid()} className="bg-green-600 hover:bg-green-700">
-                    <CheckCircle className="h-4 w-4 mr-2" />
-                    Submit Application
-                  </Button>
-                )}
               </div>
-            </CardContent>
-          </Card>
-        </div>
+            )}
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-between mt-8 pt-6 border-t border-slate-200">
+              <Button variant="outline" onClick={prevStep} disabled={currentStep === 1} className="px-6 bg-transparent">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Previous
+              </Button>
+
+              {currentStep < totalSteps ? (
+                <Button
+                  onClick={nextStep}
+                  className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-6 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 border-0"
+                >
+                  Next
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleSubmit}
+                  className="bg-gradient-to-r from-emerald-400 via-teal-500 to-emerald-400 hover:from-emerald-500 hover:via-teal-600 hover:to-emerald-500 text-white font-semibold px-8 rounded-full shadow-xl hover:shadow-emerald-500/25 transition-all duration-500 border-0"
+                >
+                  Submit Application
+                  <Send className="h-4 w-4 ml-2" />
+                </Button>
+              )}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

@@ -1,99 +1,82 @@
-import { notFound } from "next/navigation"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { MapPin, Calendar, Users, Briefcase, GraduationCap, Clock, Plane } from "lucide-react"
-import Link from "next/link"
+"use client"
 
-const jobs = [
+import { useState, useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { ArrowLeft, Printer, MapPin, Clock, DollarSign, Users } from "lucide-react"
+import Link from "next/link"
+import { useParams } from "next/navigation"
+
+interface JobData {
+  id: number
+  title: string
+  department: string
+  location: string
+  type: string
+  salary: string
+  description: string
+  postedDate: string
+  openings: number
+  plainTextPosting: {
+    position: string
+    payDetails: string
+    numberOfOpenings: number
+    locationDetails: string[]
+    jobDuties: string
+    education: string
+    experience: string
+  }
+}
+
+const jobsData: JobData[] = [
   {
     id: 1,
-    title: "Senior Software Engineer",
+    title: "Software Developer",
     department: "Engineering",
     location: "Colorado Springs, CO",
     type: "Full-time",
-    salary: "$120,000 - $150,000",
-    posted: "August 5th",
-    openings: 2,
-    description: "Join our engineering team to build cutting-edge software solutions using modern technologies.",
-    skills: ["React", "Node.js", "TypeScript", "AWS"],
-    gradient: "from-purple-500 to-pink-500",
-    fullDescription: `We are seeking a Senior Software Engineer to join our dynamic engineering team. You will be responsible for designing, developing, and maintaining high-quality software applications that serve our clients' needs.
-
-Key Responsibilities:
-• Design and develop scalable web applications using React and Node.js
-• Collaborate with cross-functional teams to define and implement new features
-• Write clean, maintainable, and well-documented code
-• Participate in code reviews and mentor junior developers
-• Optimize applications for maximum speed and scalability
-• Stay up-to-date with emerging technologies and industry trends
-
-Requirements:
-• Bachelor's degree in Computer Science or related field
-• 5+ years of experience in software development
-• Strong proficiency in React, Node.js, and TypeScript
-• Experience with AWS cloud services
-• Excellent problem-solving and communication skills`,
-    requirements: [
-      "Bachelor's degree in Computer Science or related field",
-      "5+ years of experience in software development",
-      "Strong proficiency in React, Node.js, and TypeScript",
-      "Experience with AWS cloud services",
-      "Excellent problem-solving and communication skills",
-    ],
-    benefits: [
-      "Competitive salary and equity package",
-      "Comprehensive health, dental, and vision insurance",
-      "401(k) with company matching",
-      "Flexible work arrangements",
-      "Professional development opportunities",
-      "Generous PTO policy",
-    ],
+    salary: "$153,733.00",
+    description:
+      "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules.",
+    postedDate: "June 26th",
+    openings: 3,
+    plainTextPosting: {
+      position: "Software Developer",
+      payDetails: "Full-time job, 40 hours per week\nPay/Salary: $153,733.00 year",
+      numberOfOpenings: 3,
+      locationDetails: ["Immense Brains LLC", "6760 Corporate Dr, Suite 100", "Colorado Springs, CO 80919"],
+      jobDuties:
+        "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Identify, analyze, and resolve issues within Oracle Fusion, ensuring timely and accurate resolution to minimize business disruption. Perform configuration tasks, including defining workflows, managing roles and security profiles, and making changes to chart of accounts, business units, and other core setups. Assist in managing and validating data flows between Oracle Fusion and other connected systems. Develop and run custom financial reports based on specific business needs. Troubleshoot and support integrations between Oracle Fusion and third-party applications, ensuring smooth data exchanges and proper system functionality. Work under supervision. Travel and/or Relocation to various unanticipated client sites throughout USA is required.",
+      education:
+        "Master’s  degree in Computer Science /IT/IS/ Engineering (Any)/ Business or related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Programmer or Developer or Engineer or closely related field. Employer also accepts Bachelor’s  degree in Computer Science /IT/IS/ Engineering (Any)/Business or related field plus five years of progressive work experience in related field.",
+      experience:
+        "Experience of Six (6) Months working with Oracle Fusion or Oracle EBS is required. Travel and/or relocation is required to unanticipated client sites within USA. International travel is not required. The frequency of travel is currently not known as it depends on the client and project requirement that cannot be currently anticipated. Employer provides Information technology services to various clients in USA and hence implementing projects will require such travel.",
+    },
   },
   {
     id: 2,
-    title: "Product Manager",
-    department: "Product",
+    title: "Software Developer",
+    department: "Engineering",
     location: "Colorado Springs, CO",
     type: "Full-time",
-    salary: "$100,000 - $130,000",
-    posted: "August 7th",
-    openings: 1,
-    description: "Lead product strategy and work with cross-functional teams to deliver exceptional user experiences.",
-    skills: ["Product Strategy", "Analytics", "Agile", "User Research"],
-    gradient: "from-green-500 to-teal-500",
-    fullDescription: `We are looking for an experienced Product Manager to drive our product strategy and roadmap. You will work closely with engineering, design, and business teams to deliver products that delight our customers.
-
-Key Responsibilities:
-• Define and execute product strategy and roadmap
-• Conduct market research and competitive analysis
-• Gather and prioritize product requirements from stakeholders
-• Work with engineering teams to deliver features on time
-• Analyze product metrics and user feedback
-• Collaborate with design team on user experience improvements
-
-Requirements:
-• Bachelor's degree in Business, Engineering, or related field
-• 3+ years of product management experience
-• Strong analytical and problem-solving skills
-• Experience with Agile development methodologies
-• Excellent communication and leadership abilities`,
-    requirements: [
-      "Bachelor's degree in Business, Engineering, or related field",
-      "3+ years of product management experience",
-      "Strong analytical and problem-solving skills",
-      "Experience with Agile development methodologies",
-      "Excellent communication and leadership abilities",
-    ],
-    benefits: [
-      "Competitive salary and performance bonuses",
-      "Comprehensive health benefits",
-      "Stock options",
-      "Flexible work schedule",
-      "Learning and development budget",
-      "Team building activities",
-    ],
+    salary: "$145,309.00",
+    description:
+      "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations.",
+    postedDate: "June 26th",
+    openings: 3,
+    plainTextPosting: {
+      position: "Software Developer",
+      payDetails: "Full-time job, 40 hours per week\nPay/Salary: $145,309.00 year",
+      numberOfOpenings: 3,
+      locationDetails: ["Immense Brains LLC", "6760 Corporate Dr, Suite 100", "Colorado Springs, CO 80919"],
+      jobDuties:
+        "Designing, building and managing scalable data systems and pipelines to ensure the data is accessible, reliable and usable across an organization. Designing and implementing ETL/ELT pipelines to move and transform data from various sources into target data systems. Build and automate workflows for batch and real-time data ingestion and processing. Design and manage scalable, cost-efficient storage solutions for both structured and unstructured data. Implement strategies for data backup, replication, and disaster recovery. Process, cleanse, and transform raw data into meaningful formats for analysis. Orchestrate complex workflows by combining different data services to ensure data pipelines run efficiently. Responsible for secure data in transit and at rest, ensuring encryption and proper access control. Work under supervision. Travel and/or relocation to unanticipated client sites throughout USA is required.",
+      education:
+        "Master's degree in Computer Science/IT/IS/Engineering (Any) or closely related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Engineer or Programmer or Developer or Data Engineer or related field.",
+      experience:
+        "Experience of Six (6) months working with ETL or Informatica is required. Travel and/or relocation is required to unanticipated client sites within USA. International travel is not required. The frequency of travel is currently not known as it depends on the client and project requirement that cannot be currently anticipated. Employer provides Information technology services to various clients in USA and hence implementing projects will require such travel.",
+    },
   },
   {
     id: 3,
@@ -102,259 +85,273 @@ Requirements:
     location: "Colorado Springs, CO",
     type: "Full-time",
     salary: "$154,170.00",
-    posted: "August 9th",
+    description:
+      "Lead technology initiatives using Agile Scrum Methodology. Develop functionalities, analyze requirements, and implement code changes.",
+    postedDate: "Aug 9th",
     openings: 1,
-    description: "Lead technology initiatives using Agile Scrum methodology, Angular, AWS, and Spring frameworks.",
-    skills: ["Java", "Spring", "Angular", "AWS", "Jenkins", "Agile Scrum"],
-    gradient: "from-blue-500 to-indigo-500",
-    fullDescription: `JOB POSTING NOTICE
-Posting Date: August 9th
-
-POSITION: Technology Lead
-Full-time job, 40 hours per week
-Pay/Salary: $154,170.00 per year
-
-NUMBER OF OPENINGS: 1
-
-LOCATION: Immense Brains LLC
-6760 Corporate Dr, Suite 100
-Colorado Springs, CO 80919
-
-JOB DUTIES: Developing the functionalities using Agile Scrum Methodology. Analyzing the requirements and implementing the code changes. Developing UI using Angular framework, HTML5, CSS, Typescript. Using design patterns like Singleton, Data Access Objects patterns. Creating POJO's and DAO's for the database entities using Spring Data JPA annotation mappings. Deploying the application on Amazon Web services (AWS) and used it to provide a large computing capacity for scalable solutions. Deploying applications into environments using Jenkins pipelines. Testing the applications using testing frameworks. Work under supervision. Travel and/or Relocation to various unanticipated client sites throughout USA is required.
-
-EDUCATION: Master's degree in Computer Science /IT/IS/ Engineering (Any) or closely related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Programmer or Developer or Engineer or closely related field.
-
-EXPERIENCE: Experience of Six (6) Months working with Java, Spring is required. Travel and/or Relocation to Unanticipated Client Sites Throughout USA is required.
-
-Posted By: Sai Nirukurti
-Designation: CEO`,
-    requirements: [
-      "Master's degree in Computer Science/IT/IS/Engineering (Any) or closely related field",
-      "Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Programmer or Developer or Engineer",
-      "Six (6) months of experience working with Java, Spring",
-      "Travel and/or Relocation to Unanticipated Client Sites Throughout USA is required",
-    ],
-    benefits: [
-      "Competitive annual salary of $154,170.00",
-      "Full-time position with 40 hours per week",
-      "Opportunity to work with cutting-edge technologies",
-      "Professional development and training opportunities",
-      "Travel opportunities to various client sites",
-      "Work under experienced supervision",
-    ],
-    travelRequired: true,
-    workHours: "40 hours per week",
-    postedBy: "Sai Nirukurti, CEO",
+    plainTextPosting: {
+      position: "Technology Lead",
+      payDetails: "Full-time job, 40 hours per week\nPay/Salary: $154,170.00 year",
+      numberOfOpenings: 1,
+      locationDetails: ["Immense Brains LLC", "6760 Corporate Dr, Suite 100", "Colorado Springs, CO 80919"],
+      jobDuties:
+        "Developing the functionalities using Agile Scrum Methodology. Analyzing the requirements and implementing the code changes. Developing UI using Angular framework, HTML5, CSS, Typescript. Using design patterns like Singleton, Data Access Objects patterns. Creating POJO's and DAO's for the database entities using Spring Data JPA annotation mappings. Deploying the application on Amazon Web services (AWS) and used it to provide a large computing capacity for scalable solutions. Deploying applications into environments using Jenkins pipelines. Testing the applications using testing frameworks. Work under supervision. Travel and/or Relocation to various unanticipated client sites throughout USA is required.",
+      education:
+        "Master's degree in Computer Science /IT/IS/ Engineering (Any) or closely related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Programmer or Developer or Engineer or closely related field.",
+      experience:
+        "Experience of Six (6) Months working with Java, Spring is required. Travel and/or Relocation to Unanticipated Client Sites Throughout USA is required.",
+    },
   },
 ]
 
-interface JobDetailPageProps {
-  params: {
-    id: string
-  }
-}
+export default function JobDetailsPage() {
+  const params = useParams()
+  const [job, setJob] = useState<JobData | null>(null)
 
-export default function JobDetailPage({ params }: JobDetailPageProps) {
-  const job = jobs.find((j) => j.id === Number.parseInt(params.id))
+  useEffect(() => {
+    const jobId = Number.parseInt(params.id as string)
+    const foundJob = jobsData.find((j) => j.id === jobId)
+    setJob(foundJob || null)
+  }, [params.id])
+
+  const handlePrint = () => {
+    window.print()
+  }
+
+  // Add keyboard shortcut for Ctrl+P / Cmd+P
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key === "p") {
+        event.preventDefault()
+        handlePrint()
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [])
 
   if (!job) {
-    notFound()
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 pt-20">
+        <div className="container mx-auto px-4 py-12">
+          <Card className="text-center p-12">
+            <h1 className="text-2xl font-light text-slate-900 mb-4">Job Not Found</h1>
+            <p className="text-slate-600 mb-8">The job position you're looking for doesn't exist.</p>
+            <Button asChild>
+              <Link href="/careers">Back to Careers</Link>
+            </Button>
+          </Card>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-      {/* Header */}
-      <div className={`bg-gradient-to-r ${job.gradient} text-white py-16`}>
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl">
-            <h1 className="text-4xl font-bold mb-4">{job.title}</h1>
-            <p className="text-xl opacity-90 mb-6">{job.description}</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 pt-20 print:pt-0 print:bg-white">
+      {/* Print Content - Only visible when printing */}
+      <div className="print-content hidden print:block">
+        <div className="job-posting-header">JOB POSTING NOTICE</div>
+        <div className="posting-date">Posting Date: {job.postedDate}</div>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-              <div className="flex items-center gap-2">
-                <Briefcase className="h-4 w-4" />
-                <span>{job.department}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                <span>{job.location}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
-                <span>Posted {job.posted}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Users className="h-4 w-4" />
-                <span>
-                  {job.openings} opening{job.openings !== 1 ? "s" : ""}
-                </span>
-              </div>
-            </div>
+        <div className="job-section">
+          <div className="section-label">POSITION:</div>
+          <div className="section-content">
+            <p>{job.plainTextPosting.position}</p>
+            {job.plainTextPosting.payDetails.split("\n").map((line, idx) => (
+              <p key={idx}>{line}</p>
+            ))}
           </div>
+        </div>
+
+        <div className="job-section">
+          <div className="section-label">NUMBER OF OPENINGS:</div>
+          <div className="section-content">
+            <p>{job.plainTextPosting.numberOfOpenings}</p>
+          </div>
+        </div>
+
+        <div className="job-section">
+          <div className="section-label">LOCATION:</div>
+          <div className="section-content">
+            {job.plainTextPosting.locationDetails.map((line, idx) => (
+              <p key={idx}>{line}</p>
+            ))}
+          </div>
+        </div>
+
+        <div className="job-section">
+          <div className="section-label">JOB DUTIES:</div>
+          <div className="section-content">
+            <p>{job.plainTextPosting.jobDuties}</p>
+          </div>
+        </div>
+
+        <div className="job-section">
+          <div className="section-label">EDUCATION:</div>
+          <div className="section-content">
+            <p>{job.plainTextPosting.education}</p>
+          </div>
+        </div>
+
+        <div className="job-section">
+          <div className="section-label">EXPERIENCE:</div>
+          <div className="section-content">
+            <p>{job.plainTextPosting.experience}</p>
+          </div>
+        </div>
+
+        <div className="signature-section">
+          <p>
+            <strong>Posted By:</strong> (Sai Nirukurti)
+          </p>
+          <p>
+            <strong>Designation:</strong> CEO
+          </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Job Description */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Job Description</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="prose max-w-none">
-                  <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-slate-700">
-                    {job.fullDescription}
-                  </pre>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Requirements */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <GraduationCap className="h-5 w-5" />
-                  Requirements
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {job.requirements.map((req, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-slate-700">{req}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-
-            {/* Skills */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Required Skills</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {job.skills.map((skill) => (
-                    <Badge key={skill} variant="secondary" className="text-sm py-1 px-3">
-                      {skill}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Benefits */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Benefits & Perks</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3">
-                  {job.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0" />
-                      <span className="text-slate-700">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
+      {/* Web Content - Hidden when printing */}
+      <div className="no-print">
+        <div className="container mx-auto px-4 py-12">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-8">
+            <Button variant="outline" asChild className="bg-white hover:bg-slate-50">
+              <Link href="/careers">
+                <ArrowLeft className="h-4 w-4 mr-2" />
+                Back to Careers
+              </Link>
+            </Button>
+            <Button onClick={handlePrint} className="bg-slate-600 text-white hover:bg-slate-700">
+              <Printer className="h-4 w-4 mr-2" />
+              Print Job Notice (Ctrl+P)
+            </Button>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
-            {/* Quick Info */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Position Details</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-600">Salary</span>
-                  <span className="font-semibold">{job.salary}</span>
+          {/* Job Details Card */}
+          <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm mb-8">
+            <CardContent className="p-8">
+              <div className="mb-8">
+                <div className="flex flex-wrap gap-3 mb-4">
+                  <Badge className="bg-slate-100 text-slate-700">{job.department}</Badge>
+                  <Badge className="bg-amber-100 text-amber-800">{job.openings} Openings</Badge>
+                  <Badge className="bg-emerald-100 text-emerald-800">Posted {job.postedDate}</Badge>
                 </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-600">Type</span>
-                  <span className="font-semibold">{job.type}</span>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-600">Department</span>
-                  <span className="font-semibold">{job.department}</span>
-                </div>
-                <Separator />
-                <div className="flex items-center justify-between">
-                  <span className="text-slate-600">Location</span>
-                  <span className="font-semibold">{job.location}</span>
-                </div>
-                {job.workHours && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-600 flex items-center gap-1">
-                        <Clock className="h-4 w-4" />
-                        Hours
-                      </span>
-                      <span className="font-semibold">{job.workHours}</span>
-                    </div>
-                  </>
-                )}
-                {job.travelRequired && (
-                  <>
-                    <Separator />
-                    <div className="flex items-center justify-between">
-                      <span className="text-slate-600 flex items-center gap-1">
-                        <Plane className="h-4 w-4" />
-                        Travel
-                      </span>
-                      <span className="font-semibold text-orange-600">Required</span>
-                    </div>
-                  </>
-                )}
-                {job.postedBy && (
-                  <>
-                    <Separator />
-                    <div className="text-center pt-2">
-                      <p className="text-sm text-slate-600">Posted by:</p>
-                      <p className="font-semibold">{job.postedBy}</p>
-                    </div>
-                  </>
-                )}
-              </CardContent>
-            </Card>
+                <h1 className="text-4xl font-light text-slate-900 mb-4">{job.title}</h1>
+                <p className="text-xl text-slate-600 font-light leading-relaxed">{job.description}</p>
+              </div>
 
-            {/* Apply Button */}
-            <Card>
-              <CardContent className="pt-6">
-                <Button asChild className="w-full mb-3" size="lg">
-                  <Link href={`/careers/${job.id}/apply`}>Apply for this Position</Link>
-                </Button>
-                <Button asChild variant="outline" className="w-full bg-transparent">
-                  <Link href="/careers">← Back to All Jobs</Link>
-                </Button>
-              </CardContent>
-            </Card>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5 text-slate-400" />
+                  <span className="text-slate-600">{job.location}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Clock className="h-5 w-5 text-slate-400" />
+                  <span className="text-slate-600">{job.type}</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <DollarSign className="h-5 w-5 text-slate-400" />
+                  <span className="text-slate-600">{job.salary}/year</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Users className="h-5 w-5 text-slate-400" />
+                  <span className="text-slate-600">{job.openings} openings</span>
+                </div>
+              </div>
 
-            {/* Company Info */}
-            <Card>
-              <CardHeader>
-                <CardTitle>About Immense Brains</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-slate-600 leading-relaxed">
-                  Immense Brains is a luxury software development company dedicated to creating exceptional digital
-                  solutions. We pride ourselves on innovation, quality, and delivering outstanding results for our
-                  clients.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
+                  asChild
+                >
+                  <Link href={`/careers/${job.id}/apply`}>Apply for This Position</Link>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={handlePrint}
+                  className="bg-transparent hover:bg-slate-50 border-slate-200 px-8 py-4 rounded-full transition-all duration-300"
+                >
+                  <Printer className="h-5 w-5 mr-2" />
+                  Print Job Notice
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Plain Text Job Posting */}
+          <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+            <CardContent className="p-8">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-black mb-4">JOB POSTING NOTICE</h2>
+                <div className="text-right text-black font-bold">Posting Date: {job.postedDate}</div>
+              </div>
+
+              <div className="bg-white border border-gray-300 p-8 font-mono text-sm">
+                <div className="space-y-6">
+                  <div className="flex">
+                    <div className="w-32 font-bold text-black flex-shrink-0">POSITION:</div>
+                    <div className="flex-1 text-black">
+                      <p>{job.plainTextPosting.position}</p>
+                      {job.plainTextPosting.payDetails.split("\n").map((line, idx) => (
+                        <p key={idx}>{line}</p>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="w-32 font-bold text-black flex-shrink-0">NUMBER OF OPENINGS:</div>
+                    <div className="flex-1 text-black">
+                      <p>{job.plainTextPosting.numberOfOpenings}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="w-32 font-bold text-black flex-shrink-0">LOCATION:</div>
+                    <div className="flex-1 text-black">
+                      {job.plainTextPosting.locationDetails.map((line, idx) => (
+                        <p key={idx}>{line}</p>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="w-32 font-bold text-black flex-shrink-0 align-top">JOB DUTIES:</div>
+                    <div className="flex-1 text-black text-justify">
+                      <p>{job.plainTextPosting.jobDuties}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="w-32 font-bold text-black flex-shrink-0 align-top">EDUCATION:</div>
+                    <div className="flex-1 text-black text-justify">
+                      <p>{job.plainTextPosting.education}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex">
+                    <div className="w-32 font-bold text-black flex-shrink-0 align-top">EXPERIENCE:</div>
+                    <div className="flex-1 text-black text-justify">
+                      <p>{job.plainTextPosting.experience}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-12 pt-8 border-t border-gray-300">
+                  <div className="space-y-4">
+                    <p className="text-black">
+                      <strong>Posted By:</strong> (Sai Nirukurti)
+                    </p>
+                    <p className="text-black">
+                      <strong>Designation:</strong> CEO
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
