@@ -99,3 +99,6 @@ jspm_packages/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Don't ignore package-lock.json
+!package-lock.json
