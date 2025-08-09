@@ -9,6 +9,7 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   generateEtags: false,
+  output: 'standalone',
   async headers() {
     return [
       {
@@ -44,6 +45,16 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  experimental: {
+    turbo: {
+      rules: {
+        '*.svg': {
+          loaders: ['@svgr/webpack'],
+          as: '*.js',
+        },
+      },
+    },
   },
 }
 

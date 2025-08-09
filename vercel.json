@@ -1,14 +1,20 @@
 {
-  "buildCommand": "pnpm build",
-  "devCommand": "pnpm dev",
-  "installCommand": "pnpm install --frozen-lockfile=false",
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
   "framework": "nextjs",
-  "regions": ["iad1"],
   "functions": {
-    "app/**/*.{js,ts,jsx,tsx}": {
-      "maxDuration": 30
+    "app/**/*.tsx": {
+      "runtime": "nodejs18.x"
     }
   },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -27,5 +33,6 @@
         }
       ]
     }
-  ]
+  ],
+  "ignoreCommand": "exit 0"
 }

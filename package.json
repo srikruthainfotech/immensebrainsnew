@@ -4,7 +4,9 @@
   "private": true,
   "description": "Immense Brains - Luxury Software Development Company Website",
   "scripts": {
+    "prebuild": "npm run clean",
     "build": "next build",
+    "clean": "rm -rf .next out",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
@@ -43,10 +45,11 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.5",
     "postcss": "^8.5",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5"
   },
   "engines": {
-    "node": "18.x"
+    "node": "18.x",
+    "npm": ">=8.0.0"
   }
 }
