@@ -24,6 +24,19 @@ interface Job {
 
 const jobsData: Job[] = [
   {
+    id: 3,
+    title: "Technology Lead",
+    department: "Engineering",
+    location: "Colorado Springs, CO",
+    type: "Full-time",
+    salary: "$154,170.00",
+    description:
+      "Lead technology initiatives using Agile Scrum Methodology. Develop functionalities, analyze requirements, and implement code changes. Work with Angular framework, HTML5, CSS, TypeScript, and deploy applications on AWS using Jenkins pipelines.",
+    postedDate: "2024-08-09",
+    openings: 1,
+    gradient: "from-blue-400 to-indigo-500",
+  },
+  {
     id: 1,
     title: "Software Developer",
     department: "Engineering",
@@ -32,7 +45,7 @@ const jobsData: Job[] = [
     salary: "$153,733.00",
     description:
       "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules. Identify, analyze, and resolve issues within Oracle Fusion systems. Perform configuration tasks including workflows, roles, security profiles.",
-    postedDate: "June 26th",
+    postedDate: "2024-06-26",
     openings: 3,
     gradient: "from-amber-400 to-yellow-500",
   },
@@ -45,24 +58,30 @@ const jobsData: Job[] = [
     salary: "$145,309.00",
     description:
       "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations. Design and implement ETL/ELT pipelines to move and transform data from various sources into target data systems.",
-    postedDate: "June 26th",
+    postedDate: "2024-06-26",
     openings: 3,
     gradient: "from-emerald-400 to-teal-500",
   },
-  {
-    id: 3,
-    title: "Technology Lead",
-    department: "Engineering",
-    location: "Colorado Springs, CO",
-    type: "Full-time",
-    salary: "$154,170.00",
-    description:
-      "Lead technology initiatives using Agile Scrum Methodology. Develop functionalities, analyze requirements, and implement code changes. Work with Angular framework, HTML5, CSS, TypeScript, and deploy applications on AWS using Jenkins pipelines.",
-    postedDate: "Aug 9th",
-    openings: 1,
-    gradient: "from-blue-400 to-indigo-500",
-  },
 ]
+
+const formatPostedDate = (dateString: string) => {
+  const date = new Date(dateString)
+  const now = new Date()
+  const diffTime = Math.abs(now.getTime() - date.getTime())
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+  if (diffDays === 1) {
+    return "Posted today"
+  } else if (diffDays <= 7) {
+    return `Posted ${diffDays} days ago`
+  } else {
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    })
+  }
+}
 
 export default function CareersPage() {
   const [searchTerm, setSearchTerm] = useState("")
@@ -71,16 +90,18 @@ export default function CareersPage() {
   const [typeFilter, setTypeFilter] = useState("all")
 
   const filteredJobs = useMemo(() => {
-    return jobsData.filter((job) => {
-      const matchesSearch =
-        job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        job.description.toLowerCase().includes(searchTerm.toLowerCase())
-      const matchesDepartment = departmentFilter === "all" || job.department === departmentFilter
-      const matchesLocation = locationFilter === "all" || job.location === locationFilter
-      const matchesType = typeFilter === "all" || job.type === typeFilter
+    return jobsData
+      .filter((job) => {
+        const matchesSearch =
+          job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          job.description.toLowerCase().includes(searchTerm.toLowerCase())
+        const matchesDepartment = departmentFilter === "all" || job.department === departmentFilter
+        const matchesLocation = locationFilter === "all" || job.location === locationFilter
+        const matchesType = typeFilter === "all" || job.type === typeFilter
 
-      return matchesSearch && matchesDepartment && matchesLocation && matchesType
-    })
+        return matchesSearch && matchesDepartment && matchesLocation && matchesType
+      })
+      .sort((a, b) => new Date(b.postedDate).getTime() - new Date(a.postedDate).getTime())
   }, [searchTerm, departmentFilter, locationFilter, typeFilter])
 
   const departments = Array.from(new Set(jobsData.map((job) => job.department)))
@@ -222,7 +243,7 @@ export default function CareersPage() {
                           {job.openings} Openings
                         </Badge>
                         <Badge className="bg-emerald-100 text-emerald-800 hover:bg-emerald-200 ml-2 block mt-2">
-                          Posted {job.postedDate}
+                          {formatPostedDate(job.postedDate)}
                         </Badge>
                       </div>
                       <div className="space-y-3 text-sm text-slate-600">
