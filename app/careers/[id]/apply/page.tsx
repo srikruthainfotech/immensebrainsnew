@@ -89,6 +89,7 @@ export default function JobApplicationPage() {
   const jobTitles = {
     1: "Software Developer",
     2: "Software Developer",
+    3: "Technology Lead",
   }
 
   const jobSkills = {
@@ -103,6 +104,20 @@ export default function JobApplicationPage() {
       "System Integration",
     ],
     2: ["ETL/ELT", "Informatica", "Data Pipelines", "SQL", "Python", "Data Warehousing", "Big Data", "Cloud Platforms"],
+    3: [
+      "Java",
+      "Spring Framework",
+      "Angular",
+      "HTML5",
+      "CSS",
+      "TypeScript",
+      "AWS",
+      "Jenkins",
+      "Agile Scrum",
+      "Spring Data JPA",
+      "Design Patterns",
+      "Testing Frameworks",
+    ],
   }
 
   const totalSteps = 5
