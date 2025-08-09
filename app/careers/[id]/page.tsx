@@ -78,6 +78,30 @@ const jobsData: JobData[] = [
         "Experience of Six (6) months working with ETL or Informatica is required. Travel and/or relocation is required to unanticipated client sites within USA. International travel is not required. The frequency of travel is currently not known as it depends on the client and project requirement that cannot be currently anticipated. Employer provides Information technology services to various clients in USA and hence implementing projects will require such travel.",
     },
   },
+  {
+    id: 3,
+    title: "Technology Lead",
+    department: "Engineering",
+    location: "Colorado Springs, CO",
+    type: "Full-time",
+    salary: "$154,170.00",
+    description:
+      "Lead technology initiatives using Agile Scrum Methodology. Develop functionalities, analyze requirements, and implement code changes.",
+    postedDate: "Aug 9th",
+    openings: 1,
+    plainTextPosting: {
+      position: "Technology Lead",
+      payDetails: "Full-time job, 40 hours per week\nPay/Salary: $154,170.00 year",
+      numberOfOpenings: 1,
+      locationDetails: ["Immense Brains LLC", "6760 Corporate Dr, Suite 100", "Colorado Springs, CO 80919"],
+      jobDuties:
+        "Developing the functionalities using Agile Scrum Methodology. Analyzing the requirements and implementing the code changes. Developing UI using Angular framework, HTML5, CSS, Typescript. Using design patterns like Singleton, Data Access Objects patterns. Creating POJO's and DAO's for the database entities using Spring Data JPA annotation mappings. Deploying the application on Amazon Web services (AWS) and used it to provide a large computing capacity for scalable solutions. Deploying applications into environments using Jenkins pipelines. Testing the applications using testing frameworks. Work under supervision. Travel and/or Relocation to various unanticipated client sites throughout USA is required.",
+      education:
+        "Master's degree in Computer Science /IT/IS/ Engineering (Any) or closely related field with Six (6) months of experience in the job offered or as an IT Consultant or Analyst or Programmer or Developer or Engineer or closely related field.",
+      experience:
+        "Experience of Six (6) Months working with Java, Spring is required. Travel and/or Relocation to Unanticipated Client Sites Throughout USA is required.",
+    },
+  },
 ]
 
 export default function JobDetailsPage() {

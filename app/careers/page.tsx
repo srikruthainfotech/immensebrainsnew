@@ -49,6 +49,19 @@ const jobsData: Job[] = [
     openings: 3,
     gradient: "from-emerald-400 to-teal-500",
   },
+  {
+    id: 3,
+    title: "Technology Lead",
+    department: "Engineering",
+    location: "Colorado Springs, CO",
+    type: "Full-time",
+    salary: "$154,170.00",
+    description:
+      "Lead technology initiatives using Agile Scrum Methodology. Develop functionalities, analyze requirements, and implement code changes. Work with Angular framework, HTML5, CSS, TypeScript, and deploy applications on AWS using Jenkins pipelines.",
+    postedDate: "Aug 9th",
+    openings: 1,
+    gradient: "from-blue-400 to-indigo-500",
+  },
 ]
 
 export default function CareersPage() {
