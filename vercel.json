@@ -6,7 +6,7 @@
   "framework": "nextjs",
   "functions": {
     "app/**/*.tsx": {
-      "runtime": "nodejs18.x"
+      "runtime": "nodejs22.x"
     }
   },
   "rewrites": [

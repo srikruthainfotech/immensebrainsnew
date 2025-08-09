@@ -10,7 +10,7 @@ export PORT=${PORT:-8080}
 # Install dependencies if node_modules doesn't exist
 if [ ! -d "node_modules" ]; then
     echo "Installing dependencies..."
-    npm ci --production=false
+    npm ci --production=false --legacy-peer-deps
 fi
 
 # Build the application if .next doesn't exist
