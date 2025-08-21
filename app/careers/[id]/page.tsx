@@ -29,6 +29,15 @@ interface JobData {
   }
 }
 
+const formatPostedDate = (dateString: string) => {
+  const date = new Date(dateString)
+  return date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  })
+}
+
 const jobsData: JobData[] = [
   {
     id: 1,
@@ -39,7 +48,7 @@ const jobsData: JobData[] = [
     salary: "$153,733.00",
     description:
       "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules.",
-    postedDate: "June 26th",
+    postedDate: "06/26/2024",
     openings: 3,
     plainTextPosting: {
       position: "Software Developer",
@@ -63,7 +72,7 @@ const jobsData: JobData[] = [
     salary: "$145,309.00",
     description:
       "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations.",
-    postedDate: "June 26th",
+    postedDate: "06/26/2024",
     openings: 3,
     plainTextPosting: {
       position: "Software Developer",
@@ -87,7 +96,7 @@ const jobsData: JobData[] = [
     salary: "$154,170.00",
     description:
       "Lead technology initiatives using Agile Scrum Methodology. Develop functionalities, analyze requirements, and implement code changes.",
-    postedDate: "Aug 9th",
+    postedDate: "08/09/2024",
     openings: 1,
     plainTextPosting: {
       position: "Technology Lead",
@@ -152,7 +161,7 @@ export default function JobDetailsPage() {
       {/* Print Content - Only visible when printing */}
       <div className="print-content hidden print:block">
         <div className="job-posting-header">JOB POSTING NOTICE</div>
-        <div className="posting-date">Posting Date: {job.postedDate}</div>
+        <div className="posting-date">Posting Date: {formatPostedDate(job.postedDate)}</div>
 
         <div className="job-section">
           <div className="section-label">POSITION:</div>
@@ -235,7 +244,7 @@ export default function JobDetailsPage() {
                 <div className="flex flex-wrap gap-3 mb-4">
                   <Badge className="bg-slate-100 text-slate-700">{job.department}</Badge>
                   <Badge className="bg-amber-100 text-amber-800">{job.openings} Openings</Badge>
-                  <Badge className="bg-emerald-100 text-emerald-800">Posted {job.postedDate}</Badge>
+                  <Badge className="bg-emerald-100 text-emerald-800">Posted {formatPostedDate(job.postedDate)}</Badge>
                 </div>
                 <h1 className="text-4xl font-light text-slate-900 mb-4">{job.title}</h1>
                 <p className="text-xl text-slate-600 font-light leading-relaxed">{job.description}</p>
@@ -263,7 +272,7 @@ export default function JobDetailsPage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-500 text-black font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
+                  className="bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-400 hover:from-amber-500 hover:via-yellow-600 hover:to-amber-400 text-black font-semibold px-8 py-4 rounded-full shadow-xl hover:shadow-amber-500/25 transition-all duration-500 transform hover:scale-105 border-0"
                   asChild
                 >
                   <Link href={`/careers/${job.id}/apply`}>Apply for This Position</Link>
@@ -286,7 +295,7 @@ export default function JobDetailsPage() {
             <CardContent className="p-8">
               <div className="text-center mb-8">
                 <h2 className="text-2xl font-bold text-black mb-4">JOB POSTING NOTICE</h2>
-                <div className="text-right text-black font-bold">Posting Date: {job.postedDate}</div>
+                <div className="text-right text-black font-bold">Posting Date: {formatPostedDate(job.postedDate)}</div>
               </div>
 
               <div className="bg-white border border-gray-300 p-8 font-mono text-sm">

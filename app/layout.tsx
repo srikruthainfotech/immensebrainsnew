@@ -14,7 +14,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Immense Brains - IT Consulting and Development Services",
   description: "Crafting extraordinary software solutions with unparalleled attention to detail and sophistication.",
-    generator: 'v0.dev'
+    generator: 'v0.app'
 }
 
 export default function RootLayout({
