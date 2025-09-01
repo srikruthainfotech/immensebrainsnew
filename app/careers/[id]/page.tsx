@@ -48,7 +48,7 @@ const jobsData: JobData[] = [
     salary: "$153,733.00",
     description:
       "Provide day-to-day support for Oracle Fusion applications, including financials, procurement, HCM, and supply chain modules.",
-    postedDate: "06/26/2024",
+    postedDate: "06/26/2025",
     openings: 3,
     plainTextPosting: {
       position: "Software Developer",
@@ -72,7 +72,7 @@ const jobsData: JobData[] = [
     salary: "$145,309.00",
     description:
       "Design, build and manage scalable data systems and pipelines to ensure data is accessible, reliable and usable across organizations.",
-    postedDate: "06/26/2024",
+    postedDate: "06/26/2025",
     openings: 3,
     plainTextPosting: {
       position: "Software Developer",
@@ -96,7 +96,7 @@ const jobsData: JobData[] = [
     salary: "$154,170.00",
     description:
       "Lead technology initiatives using Agile Scrum Methodology. Develop functionalities, analyze requirements, and implement code changes.",
-    postedDate: "08/09/2024",
+    postedDate: "08/09/2025",
     openings: 1,
     plainTextPosting: {
       position: "Technology Lead",
